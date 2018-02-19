@@ -17,12 +17,12 @@ var fs = require('fs');
 const router = express.Router();
 
 // Load relevant model
-const Model = require('../../models/testModel');
+const Model = require('../../models/event');
 
 // Configure multipart handler & upload destination
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    var p = path.join(req.app.locals.config.UPLOAD_FOLDER, '/items/');
+    var p = path.join(req.app.locals.config.UPLOAD_FOLDER, '/events/');
     mkdirp.sync(p);
     cb(null, p)
   },
