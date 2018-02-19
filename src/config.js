@@ -1,12 +1,12 @@
-var devEnc = {} //require('./app-secret/development');
-var prodEnc = {} //require('./app-secret/production');
+var devEnc = require('./largier-secret/development');
+var prodEnc = require('./largier-secret/production');
 
 var path = require('path');
 
 var development = {
   UPLOAD_FOLDER: process.env.UPLOAD_FOLDER || path.join(process.env.HOME, '/www/uploads'),
   DB_PORT: '27017',
-  DB_NAME: process.env.DB_NAME || 'example_app_dev',
+  DB_NAME: process.env.DB_NAME || 'largier_dev',
   DEBUG_LOG: true,
   DEBUG_WARN: true,
   DEBUG_ERROR: true,
@@ -16,7 +16,7 @@ var development = {
 var production = {
   UPLOAD_FOLDER: '/usr/local/share/uploads',
   DB_PORT: '27017',
-  DB_NAME: process.env.DB_NAME || 'example_app',
+  DB_NAME: process.env.DB_NAME || 'largier_app',
   DEBUG_LOG: false,
   DEBUG_WARN: false,
   DEBUG_ERROR: true,
