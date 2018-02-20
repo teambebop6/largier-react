@@ -1,9 +1,9 @@
 
 ![TeamBebop6](./logo.png)
 
-## tb6-app
+## largier-react
 
-A template for Team bebop 6 app.
+The react app source code for chantallargier.com
 
 ### dev
 
