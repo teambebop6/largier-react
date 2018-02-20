@@ -5,11 +5,23 @@ import React, { Component } from 'react';
 import { Menu, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../res/images/logo.png';
+import { push } from "react-router-redux";
 
-export default class MenuExampleStackable extends Component {
+
+export default class TopBar extends Component {
   state = {};
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  logout(){
+    localStorage.removeItem('admin');
+    push('/login');
+  }
+
+  constructor(){
+    super();
+    this.logout = this.logout.bind(this);
+  }
 
   render() {
     const { activeItem } = this.state;
@@ -38,7 +50,9 @@ export default class MenuExampleStackable extends Component {
             Back to Homepage  
           </Menu.Item>
           <Menu.Item icon
-            onClick={this.props.logout}
+            as={Link}
+            to="#"
+            onClick={this.logout}
           >
             <Icon name="sign out"/>
 
