@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-
 import EditItemForm from './common/components/EditItemForm'
-
 import { get, post } from '../../../common/helpers/api';
-
+import { apiBasePath } from './common/globals';
+import path from 'path';
 
 export default class Modify extends Component{
   constructor(props){
@@ -23,11 +22,8 @@ export default class Modify extends Component{
   }
 
   componentDidMount() {
-    get(`/api/admin/crudTemplate/item/${this.props.match.params.id}`)
+    get(path.join(apiBasePath, `/item/${this.props.match.params.id}`))
       .then(res => {
-        console.log("Received item response:");
-        console.log(res);
-
         this.setState({item: res})
       })
   }
@@ -38,7 +34,7 @@ export default class Modify extends Component{
     let history = this.props.history;
 
     // Update 
-    post('/api/admin/crudTemplate/item/'+this.state.item._id, formData, { autoHeaders: true })
+    post(path.join(apiBasePath, '/item/'+this.state.item._id), formData, { autoHeaders: true })
       .then((res) => {
         if(res.ok){
           history.push("../");
@@ -53,7 +49,7 @@ export default class Modify extends Component{
       <EditItemForm
         item={this.state.item}
         submit={this.submit}
-        title="Modify item"
+        title="Modify event"
       />
     )
   }

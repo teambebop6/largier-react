@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
-
 import { post } from '../../../../../common/helpers/api';
+import { apiBasePath } from '../globals';
+import path from 'path';
 
 export default class DeleteItemModal extends Component{
 
@@ -9,7 +10,7 @@ export default class DeleteItemModal extends Component{
     console.log("Item id is:");
     console.log(this.props.itemId);
 
-    post('/api/admin/crudTemplate/delete', {
+    post(path.join(apiBasePath, '/delete'), {
       id: this.props.itemId
     }).then((res) =>{
       console.log(res)

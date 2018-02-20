@@ -4,6 +4,12 @@ import { Form, Button, Checkbox } from 'semantic-ui-react';
 
 import TopBar from '../../../../common/components/TopBar';
 
+// Fields
+import SingleLineTextField from './SingleLineTextField';
+import DateField from './DateField';
+
+import '../../../../../../node_modules/pickerjs/dist/picker.css';
+
 export default class EditItemForm extends Component {
 
   constructor(props){
@@ -15,7 +21,10 @@ export default class EditItemForm extends Component {
     this.submit = this.submit.bind(this)
 
     this.state = {
-      files: []
+      files: [],
+      eventTypeOptions: [
+        { text: "Concert", value: "concert" },
+      ]
     }
   }
 
@@ -46,31 +55,12 @@ export default class EditItemForm extends Component {
   }
 
   onCheckboxChange(e) {
-    /*
-    let item = {...this.state.item};
-    item[e.target.name] = e.target.checked;
-    
-    this.setState({ item: item })
-    */
-
     this.props.item[e.target.name] = e.target.checked
     this.forceUpdate();
   }
 
   onChange(e) {
-    /*
-    let item = {...this.state.item};
-    item[e.target.name] = e.target.value;
-
-    this.setState({
-      item: item
-    });
-    */
-
-    console.log("Changing value to")
-    console.log(e.target.value);
     this.props.item[e.target.name] = e.target.value
-
     console.log(this.props.item);
     this.forceUpdate();
   }
@@ -79,6 +69,9 @@ export default class EditItemForm extends Component {
     e.preventDefault();
 
     const formData = new FormData()
+
+    console.log("Submitting:");
+    console.log(this.props.item);
 
     formData.append('item', JSON.stringify(this.props.item));
 
@@ -114,54 +107,57 @@ export default class EditItemForm extends Component {
                   value={item._id} 
                   onChange={this.onChange}
                 />
-                <Form.Field>
-                  <label>Title</label>
-                  <input 
-                    name="title" 
-                    type="text" 
-                    value={item.title} 
-                    onChange={this.onChange}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Description</label>
-                  <textarea 
-                    name="detail"
-                    onChange={this.onChange}
-                    value={item.detail}
-                  >
-                  </textarea>
-                </Form.Field>
-                <Form.Field>
-                  <label>Avatar</label>
-                  <input name="avatar" type="file" onChange={this.onFileChange} />
-                  {
-                    item.avatar ?
-                      (
-                        <img 
-                          className="ui small image" 
-                          src="/assets/images/{item.avatar.filename}"
-                          alt="item avatar"
-                        /> 
-                      ) : ""
-                  }
-                </Form.Field>
-                <Form.Field>
-                  <Checkbox slider
-                    checked={item.visible}
-                    id="visible"
-                    name="visible"
-                    label="Visible?"
-                    onChange={this.onCheckboxChange}
-                  />
-                </Form.Field>
-                <Button type='submit'>Submit</Button>
-              </Form>
 
-            </div>
+
+              <Form.Field>
+                <label>Title</label>
+                <input 
+                  name="title" 
+                  type="text" 
+                  value={item.title || ''} 
+                  onChange={this.onChange}
+                />
+              </Form.Field>
+
+              <SingleLineTextField
+                name="location"
+                title="Location"
+                value={item.location || ''}
+                onChange={this.onChange}
+              />
+
+              <SingleLineTextField
+                name="venue"
+                title="Venue"
+                value={item.venue || ''}
+                onChange={this.onChange}/>
+
+
+              <DateField 
+                onChange={this.onChange}
+                value={item.date || '' }
+                title="Date"
+                name="date"/>
+
+
+              <input type="hidden" name="type" value="concert"/>
+
+              <Form.Field>
+                <Checkbox slider
+                  checked={item.visible}
+                  id="visible"
+                  name="visible"
+                  label="Visible?"
+                  onChange={this.onCheckboxChange}
+                />
+              </Form.Field>
+              <Button type='submit'>Submit</Button>
+            </Form>
+
           </div>
         </div>
       </div>
+    </div>
     )
   }
 

@@ -14,8 +14,9 @@ const AdminHome = ({ match }) => (
 
     <Route exact path={match.url} render={() =>
       <div>
-        <TopBar/>
-        <h3>Welcome to admin.</h3>
+        <p>
+          Welcome to the admin control panel of chantallargier.com.
+        </p>
       </div>
     }
     />

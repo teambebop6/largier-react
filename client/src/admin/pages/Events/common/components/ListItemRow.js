@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Checkbox, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { post } from '../../../../../common/helpers/api';
+import { apiBasePath } from '../globals';
+import path from 'path';
+import moment from 'moment';
 
 export default class ListItemRow extends Component{
 
@@ -24,7 +27,7 @@ export default class ListItemRow extends Component{
     formData.append('item', JSON.stringify(item));
 
     // Update 
-    post('/api/admin/crudTemplate/item/'+data.item._id, formData, { autoHeaders: true })
+    post(path.join(apiBasePath, '/item/'+data.item._id), formData, { autoHeaders: true })
       .then((res) => {
         if(res.ok){
           this.props.item.visible = data.checked;
@@ -38,28 +41,19 @@ export default class ListItemRow extends Component{
 
     const item = this.props.item;
 
-    // Avatar block
-    function Avatar() {
-      if (item.avatar) {
-        console.log(item.avatar);
-        return (
-          <img className="ui mini image" src={"/assets/uploads/items/" + item.avatar.filename} alt="Avatar"/>
-        )
-      }
-
-      return <div/>
-    }
-
     return (
       <tr>
-        <td>
-          <Avatar/>
-        </td>
         <td>
           {item.title}
         </td>
         <td>
-          {item.detail}
+          {item.location}
+        </td>
+        <td>
+          {item.venue}
+        </td>
+        <td>
+          {moment(item.date).format("LLLL")}
         </td>
 
         <td>

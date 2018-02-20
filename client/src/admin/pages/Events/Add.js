@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-
 import EditItemForm from './common/components/EditItemForm'
-
 import { post } from '../../../common/helpers/api';
+import { apiBasePath } from './common/globals';
+import path from 'path';
 
 export default class Add extends Component { 
 
@@ -13,8 +13,9 @@ export default class Add extends Component {
       item: {
         '_id': '',
         'title': '',
-        'detail': '',
+        'location': '',
         'visible': false,
+        'date': Date.Now,
         'avatar': null
       }
     }
@@ -26,7 +27,7 @@ export default class Add extends Component {
   submit (formData) {
     let history = this.props.history;
     
-    post('/api/admin/crudTemplate/add', formData, { autoHeaders: true })
+    post(path.join(apiBasePath, '/add'), formData, { autoHeaders: true })
       .then((res) => {
         if(res.ok){
           return history.push("./");
@@ -41,7 +42,7 @@ export default class Add extends Component {
     return(
       <EditItemForm
         submit={this.submit}
-        title="Add item"
+        title="Create new event"
         item={this.state.item}
       />
     )

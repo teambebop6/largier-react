@@ -6,7 +6,7 @@ import AdminHomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 
 // Subroutes
-import crudRoutes from './pages/CrudTemplate/routesConfig';
+import eventsRoutes from './pages/Events/routesConfig';
 
 const path = require('path');
 
@@ -24,13 +24,12 @@ var routes = [
   }
 ]
 
-// Plugin subroute
-const crudBaseUrl = '/admin/crudTemplate/';
-crudRoutes.forEach(function(route, index) {
-  crudRoutes[index].path = path.join(crudBaseUrl, route.path);
+// Plugin events subroute
+const eventsBaseUrl = '/admin/events/';
+eventsRoutes.forEach(function(route, index) {
+  eventsRoutes[index].path = path.join(eventsBaseUrl, route.path);
 });
-
-routes = routes.concat(crudRoutes);
+routes = routes.concat(eventsRoutes);
 
 
 export default routes;

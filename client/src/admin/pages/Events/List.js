@@ -13,6 +13,8 @@ import { get } from '../../../common/helpers/api';
 import DeleteItemModal from './common/components/DeleteItemModal';
 import ListItemRow from './common/components/ListItemRow';
 
+import { apiBasePath } from './common/globals';
+
 export default class List extends Component {
   constructor(props){
     super(props)
@@ -34,7 +36,7 @@ export default class List extends Component {
   }
 
   loadItems(){
-    get('/api/admin/crudTemplate/')
+    get(apiBasePath)
       .then((data) => {
         this.setState({ items: data })
       })
@@ -58,7 +60,7 @@ export default class List extends Component {
 
       <Grid className="page">
         <Grid.Row>
-          <h3>Items</h3>
+          <h3>Events</h3>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
@@ -69,11 +71,12 @@ export default class List extends Component {
           <Table fluid="true">
             <thead>
               <tr>
-                <th width="10%">Bild</th>
-                <th width="25%">Titel</th>
-                <th width="35%">Beschreibung</th>
-                <th width="10%">Sichtbar</th>
-                <th>Aktionen</th>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Venue</th>
+                <th>Date</th>
+                <th>Visible?</th>
+                <th width="10%">Aktionen</th>
               </tr>
             </thead>
 
