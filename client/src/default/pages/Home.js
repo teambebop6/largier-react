@@ -6,10 +6,10 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Image } from 'semantic-ui-react';
-
+import { Link } from 'react-router-dom';
 import ConcertBlock from '../../common/components/ConcertBlock';
-
 import { get } from '../../common/helpers/api';
+
 
 class Home extends Component {
 
@@ -141,6 +141,17 @@ class Home extends Component {
               allow='autoplay; encrypted-media'
               allowfullscreen=''
             />
+          </Grid.Row>
+        </Grid>
+        
+        <Grid className="page footer-grid">
+          <Grid.Row>
+            <Grid.Column textAlign="center">
+              <p>
+                <span>&copy;2018 chantallargier.com | </span>
+                <Link to="/admin">admin</Link>
+              </p>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>

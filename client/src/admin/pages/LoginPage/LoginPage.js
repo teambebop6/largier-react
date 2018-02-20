@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react';
 import { authenticate } from '../../modules/auth';
-import Logo from '../../../res/images/tb6-logo.svg';
+import Logo from '../../../res/images/logo_squared.png';
 import './LoginPage.less';
 
 class Login extends Component {

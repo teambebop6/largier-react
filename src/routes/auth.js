@@ -6,9 +6,15 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/login', (req, res) => {
-  res.json({
-    result: 'login successful!'
-  });
+  if(req.body.username == req.app.locals.config.ADMIN_NAME &&
+    req.body.password == req.app.locals.config.ADMIN_PASSWORD){
+
+    res.json({
+      result: 'login successful!'
+    });
+  }else{
+    res.sendStatus(500);
+  }
 });
 
 router.post('/logout', (req, res) => {
