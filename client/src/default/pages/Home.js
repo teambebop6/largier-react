@@ -59,7 +59,7 @@ class Home extends Component {
 
         <Nav />
 
-        <div className="header" style={{background:'url('+Header+')'}} />
+        <div className="headerPicture" style={{background:'url('+Header+')'}} />
 
         <Grid className="page">
           <Grid.Row>
