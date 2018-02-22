@@ -14,6 +14,7 @@ export default class Add extends Component {
         '_id': '',
         'title': '',
         'location': '',
+        'type': '',
         'visible': false,
         'date': Date.Now,
         'avatar': null

@@ -5,11 +5,24 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import ConcertBlock from '../../common/components/ConcertBlock';
+
 import { get } from '../../common/helpers/api';
 
+// Common components
+import Nav from '../../common/components/Nav';
+import ConcertBlock from '../../common/components/ConcertBlock';
+
+// Resources
+import './Home.less';
+import Logo from '../../res/images/logo.png';
+import Header from '../../res/images/header.jpg';
+
+import { I18n } from 'react-i18next';
+import i18n from '../../i18n';
+
+import { Markdown } from 'react-remarkable';
 
 class Home extends Component {
 
@@ -18,100 +31,126 @@ class Home extends Component {
     past_concerts: [],
   }
 
+  constructor(){
+    super();
+
+    this.selectLanguage = this.selectLanguage.bind(this);
+    
+  }
+
+  selectLanguage(lng){
+   i18n.changeLanguage(lng); 
+  }
+
   componentDidMount(){
-    get('/api/concerts').then(res => {
+    get('/api/concerts?limit=5').then(res => {
       this.setState(res.data);
+      console.log(this.state);
     }).catch(err => {
       console.log(err);
     })
+    
+    i18n.changeLanguage("en"); 
   }
 
   render() {
     return (
       <div>
-        <Grid className="page logo-grid">
+
+        <Nav />
+
+        <div className="header" style={{background:'url('+Header+')'}} />
+
+        <Grid className="page">
           <Grid.Row>
-            <Grid.Column>
-              <Image src="/assets/images/logo.png" size="medium" />
+            <Grid.Column textAlign="center">
+              <Image src={Logo} centered /> 
+              <p>
+                <Button onClick={() => this.selectLanguage("en")}>English</Button>
+                <Button onClick={() => this.selectLanguage("de")}>Deutsch</Button>
+              </p>
             </Grid.Column>
           </Grid.Row>
-        </Grid>       
+        </Grid>
 
-        <Grid className="page intro-grid">
-          <Grid.Row>
-            <Grid.Column width="seven">
-              <p>
-                Swiss Pianist Chantal Largier is a talented, versatile and admired artist, who knows how to impress and fascinate the audience through her interpretation and real passion for music. Her goal is to find the true spirit of music and to share it with her audience.
-              </p>
+        <Grid centered className="page default-grid intro-grid" id="about">
+          <Grid.Row columns="two">
+            <Grid.Column location="center">
+              <I18n>
+                {
+                  (t) => {
+                    return (
+                      <p>
+                        <strong>{t('swisspianist')}</strong> {t('intro') }
+                      </p>
+                    )
+                  }
+                }
+              </I18n>
             </Grid.Column>  
-            <Grid.Column width="two"></Grid.Column>
-            <Grid.Column width="seven">
-              <p>
-                Die Schweizer Pianistin Chantal Largier ist eine ausdrucksstarke, vielseitige und hoch geschätzte Künstlerin, die durch ihre Interpretation und Leidenschaft zur Musik berühren und faszinieren kann. Ihr Ziel ist es, Musik auf verschiedenster Art und Weise zum Ausdruck zu bringen.
-              </p>
-            </Grid.Column>
           </Grid.Row>
         </Grid>
 
-        <Grid className="page flower-grid">
-          <Grid.Row>
-            <Grid.Column>
-              <Image 
-                centered 
-                className="flower" 
-                src="/assets/images/flower.png" />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-
-
-        <Grid className="page bio-grid">
+        <Grid centered className="page bio-grid default-grid">
           <Grid.Row columns="two">
             <Grid.Column>
-              <p>Chantal grew up in Switzerland and in Japan. She got her first lesson and started to build up her career at the age of six. She won the '14th Youth Music Harmony Competition' in Tokyo. In 2014 she moved to China and teached piano classes for piano students at the Zhaoqing University. Until 2017 she gave 100 concerts throughout China.</p>
-            </Grid.Column>        
-            <Grid.Column>
+              <h2>Bio</h2>
               <p>
-                Chantal, aufgewachsen in der Schweiz und in Japan, erhielt ihren ersten Klavierunterricht mit zarten sechs Jahren und beginnt somit ihre Laufbahn als Pianistin. Sie gewann den in Tokio angesehen Klavierwettbewerb „14th Youth Music Harmony Competition“. Im 2014 zog sie nach China, unterrichtete Klavier-Studierende an der Zhaoqing Universität und konzertierte bis 2017, 100 Konzerte in ganz China.
+                <I18n>{(t) => t('bio1')}</I18n>
               </p>
             </Grid.Column>        
           </Grid.Row> 
           <Grid.Row columns="two">
             <Grid.Column>
               <p>
-                She performed in prestigious Concert Halls such as the <i>Great Hall of People</i> in China, <i>Oriental Art Center</i> in Shanghai, the <i>Shanghai Symphony Hall</i> and the <i>Guotai Arts Center</i> in Chongqing.
+                <I18n>
+                  {
+                    (t) => {
+                      return (
+                        <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> 
+                      )
+                    }
+                  }
+                </I18n>
               </p>
             </Grid.Column>        
-            <Grid.Column>
-              <p>Sie spielte in berühmten und hoch anerkannten Konzerthallen, wie die <i>Grosse Halle des Volkes in Peking</i>, das <i>Oriental Art Center</i> in Shanghai und die <i>Shanghai Symphony Hall</i>, sowie das <i>Guotai Arts Center</i> in Chongqing.
-              </p>
-            </Grid.Column>
           </Grid.Row>
         </Grid>
 
 
-        <Grid className="page concerts-grid">
+        <Grid className="page concerts-grid" id="concerts">
           <Grid.Row className="title-row">
-            <h2>Concerts</h2>
+            <h2>
+              <I18n>{(t) => t('concerts')}</I18n>
+            </h2>
           </Grid.Row>  
           <Grid.Row>
             <Grid.Column>
-              <h3>Upcoming / Kommende</h3>
+              <h3>
+                <I18n>{(t) => t('upcoming-concerts')}</I18n>
+              </h3>
               <ConcertBlock
                 concerts={this.state.upcoming_concerts}
               />
-              <h3>Past / Vergangene</h3>
+              <h3>
+                <I18n>{(t) => t('past-concerts')}</I18n>
+              </h3>
               <ConcertBlock
                 concerts={this.state.past_concerts}
               />
-              <a href="/concerts">alle Konzerte anzeigen</a>
+              <a href="/concerts" className="link">
+                <I18n>{(t) => t('show-all-concerts')}</I18n>
+              </a>
             </Grid.Column>
           </Grid.Row>
         </Grid> 
 
-        <Grid className="page media-grid">
+        <Grid className="page media-grid" id="media">
           <Grid.Row className="title-row">
-            <h2>Media</h2>
+            <h2>
+              <I18n>{(t) => t('media')}</I18n>
+
+            </h2>
           </Grid.Row>
           <Grid.Row className="title-row">
             <iframe 
@@ -119,37 +158,37 @@ class Home extends Component {
               width='560' 
               height='315' 
               src='https://www.youtube.com/embed/1VgdOcGl-q8'
-              frameborder='0'
+              frameBorder='0'
               allow='autoplay; encrypted-media'
-              allowfullscreen=''
+              allowFullScreen=''
             />
             <iframe 
               title='Video 2'
               width='560' 
               height='315' 
               src='https://www.youtube.com/embed/oqXjA0Uh38c'
-              frameborder='0'
+              frameBorder='0'
               allow='autoplay; encrypted-media'
-              allowfullscreen=''
+              allowFullScreen=''
             />
             <iframe 
               title='Video 3'
               width='560'
               height='315'
               src='https://www.youtube.com/embed/cnhkhJmc__I'
-              frameborder='0'
+              frameBorder='0'
               allow='autoplay; encrypted-media'
-              allowfullscreen=''
+              allowFullScreen=''
             />
           </Grid.Row>
         </Grid>
-        
+
         <Grid className="page footer-grid">
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>
                 <span>&copy;2018 chantallargier.com | </span>
-                <Link to="/admin">admin</Link>
+                <Link to="/admin" className="link">admin</Link>
               </p>
             </Grid.Column>
           </Grid.Row>

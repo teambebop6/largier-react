@@ -67,8 +67,12 @@ export default class EditItemForm extends Component {
 
   submit = (e) => {
     e.preventDefault();
-
+    
     const formData = new FormData()
+
+    if(this.typeField && this.typeField.value){
+      this.props.item.type = this.typeField.value;
+    }
 
     console.log("Submitting:");
     console.log(this.props.item);
@@ -140,7 +144,12 @@ export default class EditItemForm extends Component {
                 name="date"/>
 
 
-              <input type="hidden" name="type" value="concert"/>
+              <input 
+                type="hidden" 
+                name="type" 
+                value="concert"
+                ref={(field) => this.typeField = field} />
+
 
               <Form.Field>
                 <Checkbox slider

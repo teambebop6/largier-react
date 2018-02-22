@@ -1,18 +1,21 @@
-import React from 'react'
+import React from 'react';
+import moment from 'moment';
 
-const ConcertElement = (concert) => {
+import { Table } from 'semantic-ui-react';
+
+const ConcertElement = ({concert}) => {
   return (
-    <tr>
-      <td class="two wide">
-        {concert.date}
-      </td>
-      <td>{concert.title}</td>
-      <td class="three wide">{concert.venue}</td>
-      <td>{concert.location}</td>
-      <td class="two wide">
-        <a href={concert.link}>Link</a>
-      </td>
-    </tr>
+    <Table.Row>
+      <Table.Cell width="two">
+        {moment(concert.date).format("DD. MMMM, YYYY")}
+      </Table.Cell>
+      <Table.Cell>{concert.title}</Table.Cell>
+      <Table.Cell width="three">{concert.venue}</Table.Cell>
+      <Table.Cell>{concert.location}</Table.Cell>
+      <Table.Cell width="two">
+        <a className="link" href={concert.link || '#'}>Link</a>
+      </Table.Cell>
+    </Table.Row>
   )
 }
 
