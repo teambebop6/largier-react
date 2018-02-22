@@ -1,4 +1,5 @@
 src/largier-secret/
+.travis/id_rsa_largier
 
 ### Node template
 # Logs
