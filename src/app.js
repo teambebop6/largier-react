@@ -3,6 +3,10 @@ import path from 'path';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import expressSession from 'express-session';
+import connectRedis from 'connect-redis';
+import config from './config';
 
 import routes from './routes';
 
@@ -15,28 +19,24 @@ const env = process.env.NODE_ENV || 'development';
 
 
 // Load config
-var config = require('./config')(env);
 app.locals.config = config;
 
 
 // Connect mongodb
-var mongoose = require('mongoose');
-var DB_PORT = (config.DB_PORT || '27017');
+// Connect mongodb
+mongoose.connect(config.mongoUrl);
 
-const mongoUrl = 'mongodb://' + (config.DB_HOST || 'localhost') + ':' + DB_PORT + '/' + (process.env.DB_NAME || config.DB_NAME || DB_NAME);
-mongoose.connect(mongoUrl);
-
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose connection open on port ' + DB_PORT);
+mongoose.connection.on('connected', () => {
+  console.log(`Mongoose connection open with ${config.mongoUrl}`);
 });
 
-mongoose.connection.on('error', function (err) {
+mongoose.connection.on('error', (err) => {
   console.error('Mongoose connection error: ' + err);
   console.error('Process will exit...');
   process.exit(-1);
 });
 
-mongoose.connection.on('disconnected', function () {
+mongoose.connection.on('disconnected', () => {
   console.log('Mongoose connection disconnected');
 });
 
@@ -46,6 +46,29 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Session
+const RedisStore = connectRedis(expressSession);
+const store = new RedisStore({
+  host: '127.0.0.1',
+  port: 6379,
+});
+store.on('connect', () => {
+  console.log('Connected to redis.');
+});
+store.on('disconnect', () => {
+  console.log('Redis is disconnected.');
+});
+app.use(expressSession({
+  name: config.SESSION_NAME,
+  store,
+  secret: config.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+  },
+}));
 
 // client
 if (process.env.NODE_ENV === 'production') {

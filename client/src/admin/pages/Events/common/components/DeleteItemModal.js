@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 import { post } from '../../../../../common/helpers/api';
 import { apiBasePath } from '../globals';
 import path from 'path';
 
-export default class DeleteItemModal extends Component{
+class DeleteItemModal extends Component{
 
   confirm(){
     console.log("Item id is:");
@@ -12,6 +13,10 @@ export default class DeleteItemModal extends Component{
 
     post(path.join(apiBasePath, '/delete'), {
       id: this.props.itemId
+    }, {
+      headers: {
+        Authorization: this.props.authorization,
+      }
     }).then((res) =>{
       console.log(res)
       if(res.ok){
@@ -33,7 +38,7 @@ export default class DeleteItemModal extends Component{
   render(){
     return(
       <div>
-        <Modal 
+        <Modal
           open={this.props.modalOpen}
           size='small'
         >
@@ -57,3 +62,10 @@ export default class DeleteItemModal extends Component{
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    authorization: `Bearer ${state.auth.token}`,
+  }
+};
+
+export default connect(mapStateToProps)(DeleteItemModal);

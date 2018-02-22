@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import EditItemForm from './common/components/EditItemForm'
 import { get, post } from '../../../common/helpers/api';
 import { apiBasePath } from './common/globals';
 import path from 'path';
 
-export default class Modify extends Component{
+class Modify extends Component{
   constructor(props){
     super(props)
 
@@ -33,8 +34,11 @@ export default class Modify extends Component{
 
     let history = this.props.history;
 
-    // Update 
-    post(path.join(apiBasePath, '/item/'+this.state.item._id), formData, { autoHeaders: true })
+    // Update
+    post(path.join(apiBasePath, '/item/'+this.state.item._id), formData, {
+      autoHeaders: true,
+      Authorization: this.props.authorization,
+    })
       .then((res) => {
         if(res.ok){
           history.push("../");
@@ -55,3 +59,11 @@ export default class Modify extends Component{
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    authorization: `Bearer ${state.auth.token}`,
+  }
+};
+
+export default connect(mapStateToProps)(Modify);

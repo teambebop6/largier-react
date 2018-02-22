@@ -4,7 +4,7 @@
 import gh from 'ghreleases';
 import moment from 'moment';
 
-const token = process.env.GIT_HUB_TOKEN;
+const token = process.env.GITHUB_TOKEN;
 const branch = process.env.TRAVIS_BRANCH || 'dev';
 const user = process.env.USER || 'henryhuang';
 const org = process.env.ORG || 'teambebop6';
@@ -21,7 +21,7 @@ export default () => {
   console.log('creating release...');
 
   if (!token) {
-    throw new Error('GIT_HUB_TOKEN environment variable have not defined!');
+    throw Error('GIT_HUB_TOKEN environment variable have not defined!');
   }
 
   const timeTag = moment().format('YYYYMMDDHHmmss');

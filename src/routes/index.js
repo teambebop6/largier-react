@@ -1,15 +1,18 @@
 import express from 'express';
 import auth from './auth';
+import jwt from 'express-jwt';
+import adminRouter from './admin';
+import config from '../config';
 
 // Load subroutes
-import admin_events_router from './admin/events'
 
 import Event from '../models/event';
 
 const router = express.Router();
 
 // Initialize subroutes
-router.use('/admin/events', admin_events_router)
+// TODO currently only admin, so only check token is valid, do not check the role is admin or not
+router.use('/admin', jwt({ secret: config.token.secret }), adminRouter);
 
 // Get concerts
 router.get('/concerts', function (req, res, next) {

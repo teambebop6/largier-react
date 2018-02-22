@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Checkbox, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { post } from '../../../../../common/helpers/api';
@@ -6,9 +7,9 @@ import { apiBasePath } from '../globals';
 import path from 'path';
 import moment from 'moment';
 
-export default class ListItemRow extends Component{
+class ListItemRow extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.visibilityChange = this.visibilityChange.bind(this);
@@ -26,18 +27,25 @@ export default class ListItemRow extends Component{
     let formData = new FormData();
     formData.append('item', JSON.stringify(item));
 
-    // Update 
-    post(path.join(apiBasePath, '/item/'+data.item._id), formData, { autoHeaders: true })
+    // Update
+    post(path.join(apiBasePath, '/item/' + data.item._id), formData, {
+      autoHeaders: true,
+      headers: {
+        Authorization: this.props.authorization,
+      }
+    })
       .then((res) => {
-        if(res.ok){
+        if (res.ok) {
           this.props.item.visible = data.checked;
           this.forceUpdate();
         }
       })
-      .catch((err) => { console.log(err); });
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  render(){
+  render() {
 
     const item = this.props.item;
 
@@ -58,9 +66,9 @@ export default class ListItemRow extends Component{
 
         <td>
           <Checkbox slider
-            checked={item.visible}
-            item={item}
-            onChange={this.visibilityChange}
+                    checked={item.visible}
+                    item={item}
+                    onChange={this.visibilityChange}
           />
         </td>
         <td>
@@ -68,9 +76,9 @@ export default class ListItemRow extends Component{
             <i className="write icon"></i>
           </Link>
 
-          <Button className="red icon remove-item" 
-            onClick={this.deleteItem}
-          >  
+          <Button className="red icon remove-item"
+                  onClick={this.deleteItem}
+          >
             <i className="remove icon"></i>
           </Button>
 
@@ -80,3 +88,11 @@ export default class ListItemRow extends Component{
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    authorization: `Bearer ${state.auth.token}`,
+  }
+};
+
+export default connect(mapStateToProps)(ListItemRow);

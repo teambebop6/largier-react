@@ -1,3 +1,6 @@
+
+const env = process.env.NODE_ENV || 'development';
+
 var devEnc = require('./largier-secret/development');
 var prodEnc = require('./largier-secret/production');
 
@@ -28,26 +31,31 @@ var config = {
   DB_HOST: 'localhost',
 };
 
-module.exports = function (env) {
-  switch(env){
-    case "development": {
-      Object.assign(config, development);
-      if (devEnc) {
-        Object.assign(config, devEnc);
-      }
-      break;
+switch (env) {
+  case "development": {
+    Object.assign(config, development);
+    if (devEnc) {
+      Object.assign(config, devEnc);
     }
-    case "production": {
-      Object.assign(config, production);
-      if (prodEnc) {
-        Object.assign(config, prodEnc);
-      }
-      break;
-    }
-    default:
-      console.error("Environment not found.");
+    break;
   }
+  case "production": {
+    Object.assign(config, production);
+    if (prodEnc) {
+      Object.assign(config, prodEnc);
+    }
+    break;
+  }
+  default:
+    console.error("Environment not found.");
+}
 
-  console.log(config);
-  return config;
-};
+const dbHost = config.DB_HOST || 'localhost';
+const dbPort = (config.DB_PORT || '27017');
+const dbName = config.DB_NAME;
+
+const mongoUrl = `mongodb://${dbHost}:${dbPort}/${dbName}`;
+config.mongoUrl = mongoUrl;
+
+console.log(config);
+export default config;
