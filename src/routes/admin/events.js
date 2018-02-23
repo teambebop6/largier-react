@@ -1,7 +1,7 @@
 /***
  *
  *   Generic CRUD template for item management
- * 
+ *
  * **/
 
 
@@ -32,13 +32,15 @@ var storage = multer.diskStorage({
     });
   }
 });
-var upload = multer({storage: storage});
+var upload = multer({ storage: storage });
 
 
 // List
 router.get('/', (req, res, next) => {
   Model.find((err, items) => {
-    if(err){ return res.status(500).json(err); }
+    if (err) {
+      return res.status(500).json(err);
+    }
     res.json(items);
   });
 });
@@ -46,9 +48,9 @@ router.get('/', (req, res, next) => {
 
 // Create
 router.post('/add', upload.fields(
-[
-  { name: 'avatar', maxCount: 1 },
-]
+  [
+    { name: 'avatar', maxCount: 1 },
+  ]
 ), (req, res, next) => {
   console.log(req.body);
   var item = new Model(JSON.parse(req.body.item));
@@ -56,35 +58,42 @@ router.post('/add', upload.fields(
   console.log(item);
 
   // Files
-  if(req.files.avatar && req.files.avatar.length > 0){
-    item.avatar = req.files.avatar[0];
+  if (req.files.avatar && req.files.avatar.length > 0) {
+    item.avatar = req.files.avatar[ 0 ];
   }
 
   item.save((err) => {
-    if(err){ return res.status(500).json(err); }
+    if (err) {
+      return res.status(500).json(err);
+    }
 
     // OK
-    res.json({ok: true});
+    res.json({ ok: true });
   })
 });
 
 // Read
-router.get('/item/:id', (req, res) => {
-  Model.findOne({_id: req.params.id}, (err, item) => {
-    if(err){ return res.status(500).json(err); }
-
-    res.json(item);
+router.get('/item/:id', (req, res, next) => {
+  Model.findOne({ _id: req.params.id }, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    return  res.json({
+      data: item,
+    });
   });
 });
 
 // Update (expects multipart header)
 router.post('/item/:id', upload.fields(
-[
-  { name: 'avatar', maxCount: 1 },
-]
+  [
+    { name: 'avatar', maxCount: 1 },
+  ]
 ), (req, res, next) => {
-  Model.findOne({_id: req.params.id}, (err, item) => {
-    if(err){ return res.status(500).json(err); }
+  Model.findOne({ _id: req.params.id }, (err, item) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
     let req_item = JSON.parse(req.body.item)
 
@@ -92,42 +101,55 @@ router.post('/item/:id', upload.fields(
 
     for (var property in req_item) {
       if (req_item.hasOwnProperty(property)) {
-        item[property] = req_item[property]
+        item[ property ] = req_item[ property ]
       }
-    } 
+    }
 
-    if(req.files.avatar && req.files.avatar.length > 0){
-      item.avatar = req.files.avatar[0]
+    if (req.files.avatar && req.files.avatar.length > 0) {
+      item.avatar = req.files.avatar[ 0 ]
     }
 
     item.save((err) => {
-      if(err){ return res.status(500).json(err); }
+      if (err) {
+        return res.status(500).json(err);
+      }
 
       // OK
-      res.json({ok: true});
+      res.json({ ok: true });
     })
   });
 });
 
 // Delete
 router.post('/delete', (req, res, next) => {
-  Model.findOne({_id: req.body.id}, (err, item) => {
-    if(err){ return res.status(500).json(err); }
-    if(!item){ return res.status(500).json({message: "Item not found."}) }
+  console.log(req.body);
+  Model.findOne({ _id: req.body.id }, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    if (!item) {
+      return next(Error('Item not found.'));
+    }
 
     item.remove((err) => {
-      if(err){ return res.status(500).json(err); }
+      if (err) {
+        return next(err);
+      }
 
       // Delete related files
-      if(item.avatar){
+      if (item.avatar) {
         fs.unlink(item.avatar.path, function (err) {
-          if (err) { console.log(err) }
-          else { console.log("Deleted image: " + item.avatar.path); }
+          if (err) {
+            console.log(err)
+          }
+          else {
+            console.log("Deleted image: " + item.avatar.path);
+          }
         });
       }
 
       // OK
-      res.json({ok:true});
+      res.json({ ok: true });
 
     })
   });

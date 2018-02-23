@@ -78,23 +78,23 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Serve upload folder
-app.use('/assets/uploads', express.static(config.UPLOAD_FOLDER))
+app.use('/assets/uploads', express.static(config.UPLOAD_FOLDER));
 
 app.use('/api', routes);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.json({
-    message: err.message,
+    errors: [ err.message ],
   })
 });
 
