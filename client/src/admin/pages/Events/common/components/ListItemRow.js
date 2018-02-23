@@ -29,7 +29,6 @@ class ListItemRow extends Component {
 
     // Update
     post(path.join(apiBasePath, '/item/' + data.item._id), formData, {
-      autoHeaders: true,
       headers: {
         Authorization: this.props.authorization,
       }

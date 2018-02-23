@@ -30,7 +30,6 @@ class Add extends Component {
     let history = this.props.history;
 
     post(path.join(apiBasePath, '/add'), formData, {
-      autoHeaders: true,
       headers: {
         Authorization: this.props.authorization,
       }

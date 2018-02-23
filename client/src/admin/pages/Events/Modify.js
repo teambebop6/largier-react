@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import EditItemForm from './common/components/EditItemForm'
 import { get, post } from '../../../common/helpers/api';
 import { apiBasePath } from './common/globals';
 import path from 'path';
+import { fetchEvent } from "../../modules/event";
 
-class Modify extends Component{
-  constructor(props){
-    super(props)
+class Modify extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       item: {
@@ -17,39 +19,58 @@ class Modify extends Component{
         'visible': false,
         'avatar': null
       }
-    }
+    };
 
     this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
-    get(path.join(apiBasePath, `/item/${this.props.match.params.id}`))
-      .then(res => {
-        this.setState({item: res})
-      })
+    get(path.join(apiBasePath, `/item/${this.props.match.params.id}`), {
+      headers: {
+        Authorization: this.props.authorization,
+      }
+    }).then(res => {
+      this.setState({ item: res.data })
+    })
+    // const { fetchEvent } = this.props;
+    // fetchEvent(this.props.match.params.id);
   }
+  
+  //
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state.item !== nextProps.item) {
+  //     return true;
+  //   } else {
+  //     return super.shouldComponentUpdate(nextProps, nextState);
+  //   }
+  // }
 
   // Form submit
-  submit (formData) {
+  submit(formData) {
 
     let history = this.props.history;
 
     // Update
-    post(path.join(apiBasePath, '/item/'+this.state.item._id), formData, {
-      autoHeaders: true,
-      Authorization: this.props.authorization,
+    post(path.join(apiBasePath, '/item/' + this.state.item._id), formData, {
+      headers: {
+        Authorization: this.props.authorization,
+      }
     })
       .then((res) => {
-        if(res.ok){
+        if (res.ok) {
           history.push("../");
-        }else{ console.log(res); }
+        } else {
+          console.log(res);
+        }
       })
-      .catch((err) => { console.log(err); });
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
 
-  render(){
-    return(
+  render() {
+    return (
       <EditItemForm
         item={this.state.item}
         submit={this.submit}
@@ -61,9 +82,15 @@ class Modify extends Component{
 }
 
 const mapStateToProps = state => {
+  console.log(state.event.eventFetched);
   return {
     authorization: `Bearer ${state.auth.token}`,
+    item: state.event.eventFetched,
   }
 };
 
-export default connect(mapStateToProps)(Modify);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchEvent,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modify);

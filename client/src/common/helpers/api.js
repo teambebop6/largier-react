@@ -6,23 +6,28 @@ export const post = (endpoint, data, opts) => {
 
   const options = {
     method: 'post',
+    headers: {}
   };
 
-  if (!opts || !opts.autoHeaders) {
-    options.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }
+  // if (!opts || !opts.autoHeaders) {
+  //   options.headers = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  // }
 
   if (data instanceof FormData) {
-    options.body = data
+    options.body = data;
   } else {
-    options.body = JSON.stringify(data)
+    Object.assign(options.headers, {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    options.body = JSON.stringify(data);
   }
 
   if (opts && opts.headers) {
-    options.headers = opts.headers
+    Object.assign(options.headers, opts.headers);
   }
 
   return fetch(endpoint, options).then(response => {
