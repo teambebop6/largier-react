@@ -8,7 +8,7 @@ const token = process.env.GITHUB_TOKEN;
 const branch = process.env.TRAVIS_BRANCH || 'dev';
 const user = process.env.USER || 'henryhuang';
 const org = process.env.ORG || 'teambebop6';
-const repo = process.env.REPO || 'upload-samples';
+const repo = process.env.REPO || 'largier-react';
 const distName = process.env.DIST_NAME || 'dist.zip';
 
 const auth = {
