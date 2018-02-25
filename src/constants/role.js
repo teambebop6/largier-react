@@ -4,4 +4,4 @@
 export default {
   ADMIN: 'admin',
   NORMAL: 'normal',
-}
+};

@@ -1,6 +1,7 @@
 /**
  * Created by Henry Huang on 10/29/17.
  */
+/* eslint import/no-extraneous-dependencies: ["error", {"peerDependencies": true}] */
 import gh from 'ghreleases';
 import moment from 'moment';
 
@@ -17,7 +18,6 @@ const auth = {
 };
 
 export default () => {
-
   console.log('creating release...');
 
   if (!token) {
@@ -25,11 +25,11 @@ export default () => {
   }
 
   const timeTag = moment().format('YYYYMMDDHHmmss');
-  const tag_name = branch + '-build-' + timeTag;
+  const tagName = `${branch}-build-${timeTag}`;
   const data = {
-    tag_name: tag_name,
-    name: 'Build at ' + timeTag,
-    body: 'Automatically release from travis.'
+    tag_name: tagName,
+    name: `Build at ${timeTag}`,
+    body: 'Automatically release from travis.',
   };
 
   gh.create(auth, org, repo, data, (err) => {
@@ -39,7 +39,7 @@ export default () => {
 
     console.log('release created!');
     console.log('asset uploading...');
-    const ref = 'tags/' + tag_name;
+    const ref = `tags/${tagName}`;
     const files = [
       distName,
     ];

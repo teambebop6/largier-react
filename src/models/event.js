@@ -10,26 +10,26 @@ const Event = new mongoose.Schema({
   venue: String,
   date: {
     type: Date,
-    default: Date.Now
+    default: Date.Now,
   },
   link: String,
   type: String,
   order: {
     type: Number,
-    default: -1
+    default: -1,
   },
   visible: {
     type: Boolean,
-    default: false
+    default: false,
   },
   creation_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   last_modified_date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 Event.plugin(autoIncrement.plugin, 'Event');

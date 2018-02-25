@@ -10,17 +10,10 @@ import config from './config';
 
 import routes from './routes';
 
-// Globals
-const DB_NAME = 'example_app';
-
 const app = express();
-
-const env = process.env.NODE_ENV || 'development';
-
 
 // Load config
 app.locals.config = config;
-
 
 // Connect mongodb
 // Connect mongodb
@@ -31,7 +24,7 @@ mongoose.connection.on('connected', () => {
 });
 
 mongoose.connection.on('error', (err) => {
-  console.error('Mongoose connection error: ' + err);
+  console.error(`Mongoose connection error: ${err}`);
   console.error('Process will exit...');
   process.exit(-1);
 });
@@ -66,7 +59,7 @@ app.use(expressSession({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+    maxAge: 7 * 24 * 60 * 60 * 1000, // ms
   },
 }));
 
@@ -90,12 +83,12 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // render the error page
   res.status(err.status || 500);
   res.json({
-    errors: [ err.message ],
-  })
+    errors: [err.message],
+  });
 });
 
-module.exports = app;
+export default app;

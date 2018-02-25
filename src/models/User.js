@@ -2,8 +2,8 @@
  * Created by Henry Huang.
  */
 import mongoose from 'mongoose';
-import config from '../config';
 import autoIncrement from 'mongoose-auto-increment';
+import config from '../config';
 
 const connection = mongoose.createConnection(config.mongoUrl);
 autoIncrement.initialize(connection);
@@ -16,16 +16,16 @@ const User = new mongoose.Schema({
   role: String,
   enable: {
     type: Boolean,
-    default: true
+    default: true,
   },
   creation_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   last_modified_date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 User.plugin(autoIncrement.plugin, 'User');

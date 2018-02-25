@@ -15,7 +15,7 @@
     "copy:pm2": "cpx \"pm2.*.js\" dist/",
     "build:client": "cd client && npm run build && cd ..",
     "build:server": "babel src -d dist",
-    "lint": "./node_modules/.bin/eslint src/"
+    "lint": "./node_modules/.bin/eslint src/ tasks/"
   },
   "pre-commit": [
     "lint"
