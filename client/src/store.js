@@ -23,15 +23,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.devToolsExtension;
+  const { devToolsExtension } = window;
   if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension())
+    enhancers.push(devToolsExtension());
   }
 }
 
 const composedEnhancers = compose(
   applyMiddleware(...middleware),
-  ...enhancers
+  ...enhancers,
 );
 
 const store = createStore(

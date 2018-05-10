@@ -7,4 +7,4 @@ import event from './modules/event';
 export default {
   auth,
   event,
-}
+};

@@ -1,8 +1,8 @@
 /**
  * Created by Henry Huang.
  */
-import Home from "./pages/Home";
-import Concerts from "./pages/Concerts";
+import Home from './pages/Home';
+import Concerts from './pages/Concerts';
 
 export default [
   {
@@ -14,5 +14,5 @@ export default [
     path: '/concerts',
     component: Concerts,
     exact: true,
-  }
-]
+  },
+];

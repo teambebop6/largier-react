@@ -3,13 +3,19 @@
  */
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
-import Logo from '../../res/images/logo.svg';
 import { Link } from 'react-router-dom';
+import Logo from '../../res/images/logo.png';
 
 export default class TopBar extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleItemClick = this.handleItemClick.bind(this);
+  }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick(e, { name }) {
+    this.setState({ activeItem: name });
+  }
 
   render() {
     const { activeItem } = this.state;
@@ -20,20 +26,20 @@ export default class TopBar extends Component {
           as={Link}
           to="/"
         >
-          <img src={Logo} alt="Logo"/>
+          <img src={Logo} alt="Logo" />
         </Menu.Item>
 
         <Menu.Item
-          name='features'
+          name="features"
           active={activeItem === 'features'}
           as={Link}
-          to={'/admin'}
+          to="/admin"
         >
           Features
         </Menu.Item>
 
         <Menu.Item
-          name='testimonials'
+          name="testimonials"
           active={activeItem === 'testimonials'}
           onClick={this.handleItemClick}
         >
@@ -41,7 +47,7 @@ export default class TopBar extends Component {
         </Menu.Item>
 
         <Menu.Item
-          name='sign-in'
+          name="sign-in"
           active={activeItem === 'sign-in'}
           onClick={this.handleItemClick}
           as={Link}
@@ -50,6 +56,6 @@ export default class TopBar extends Component {
           Sign-in
         </Menu.Item>
       </Menu>
-    )
+    );
   }
 }

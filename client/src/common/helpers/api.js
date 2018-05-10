@@ -3,10 +3,9 @@
  */
 
 export const post = (endpoint, data, opts) => {
-
   const options = {
     method: 'post',
-    headers: {}
+    headers: {},
   };
 
   // if (!opts || !opts.autoHeaders) {
@@ -20,8 +19,8 @@ export const post = (endpoint, data, opts) => {
     options.body = data;
   } else {
     Object.assign(options.headers, {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     });
     options.body = JSON.stringify(data);
   }
@@ -30,14 +29,14 @@ export const post = (endpoint, data, opts) => {
     Object.assign(options.headers, opts.headers);
   }
 
-  return fetch(endpoint, options).then(response => {
-    return response.json().then(json => {
+  return fetch(endpoint, options).then(response => (
+    response.json().then((json) => {
       if (!response.ok) {
         return Promise.reject(json);
       }
       return Promise.resolve(json);
     })
-  });
+  ));
 };
 
 
@@ -52,13 +51,13 @@ export const get = (endpoint, opts) => {
   }
 
   console.log(options);
-  return fetch(endpoint, options).then(response => {
+  return fetch(endpoint, options).then((response) => {
     console.log(response);
-    return response.json().then(json => {
+    return response.json().then((json) => {
       if (!response.ok) {
         return Promise.reject(json);
       }
       return Promise.resolve(json);
-    })
-  })
+    });
+  });
 };
