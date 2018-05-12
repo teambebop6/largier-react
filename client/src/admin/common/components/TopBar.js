@@ -3,24 +3,26 @@
  */
 import React, { Component } from 'react';
 import { Menu, Icon, Image } from 'semantic-ui-react';
+import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 import Logo from '../../../res/images/logo.png';
-import { push } from "react-router-redux";
 
+
+const logout = () => {
+  localStorage.removeItem('admin');
+  push('/login');
+};
 
 export default class TopBar extends Component {
-  state = {};
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-  logout(){
-    localStorage.removeItem('admin');
-    push('/login');
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.logout = this.logout.bind(this);
+    this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-  constructor(){
-    super();
-    this.logout = this.logout.bind(this);
+  handleItemClick(e, { name }) {
+    this.setState({ activeItem: name });
   }
 
   render() {
@@ -29,15 +31,15 @@ export default class TopBar extends Component {
     return (
       <Menu size="large" stackable>
         <Menu.Item>
-          <Image size="small" src={Logo}/>
+          <Image size="small" src={Logo} />
         </Menu.Item>
 
         <Menu.Item
-          name='events'
+          name="events"
           active={activeItem === 'events'}
           onClick={this.handleItemClick}
           as={Link}
-          to={"/admin/events/"}
+          to="/admin/events/"
         >
           Events verwalten
         </Menu.Item>
@@ -46,19 +48,20 @@ export default class TopBar extends Component {
             as={Link}
             to="/"
           >
-            <Icon name="home"/>
-            Back to Homepage  
+            <Icon name="home" />
+            Back to Homepage
           </Menu.Item>
-          <Menu.Item icon
+          <Menu.Item
+            icon
             as={Link}
             to="#"
-            onClick={this.logout}
+            onClick={logout}
           >
-            <Icon name="sign out"/>
+            <Icon name="sign out" />
 
           </Menu.Item>
         </Menu.Menu>
       </Menu>
-    )
+    );
   }
 }

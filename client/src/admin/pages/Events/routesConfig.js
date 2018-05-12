@@ -21,4 +21,4 @@ export default [
     exact: false,
     admin: true,
   },
-]
+];

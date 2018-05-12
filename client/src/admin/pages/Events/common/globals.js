@@ -1,1 +1,2 @@
-export const apiBasePath = "/api/admin/events/";
+export const apiBasePath = '/api/admin/events/';
+export default {};

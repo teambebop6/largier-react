@@ -20,7 +20,8 @@ const registerValidSW = (swUrl) => {
     .then((registration) => {
       // eslint-disable-next-line
       registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
+        const { installing } = registration;
+        const { installingWorker } = installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {

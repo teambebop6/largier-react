@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Table } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
@@ -18,49 +19,49 @@ import { apiBasePath } from './common/globals';
 
 class List extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       items: [],
       deleteItemId: null,
-      deleteModalOpen: false
+      deleteModalOpen: false,
     };
 
     this.loadItems = this.loadItems.bind(this);
-  }
-
-  deleteItem = (item) => {
-    this.setState({
-      deleteModalOpen: true,
-      deleteItemId: item._id
-    })
-  }
-
-  loadItems() {
-    get(apiBasePath, {
-      headers: {
-        Authorization: this.props.authorization,
-      }
-    })
-      .then((data) => {
-        this.setState({ items: data })
-      })
   }
 
   componentDidMount() {
     this.loadItems();
   }
 
+  deleteItem(item) {
+    this.setState({
+      deleteModalOpen: true,
+      deleteItemId: item._id,
+    });
+  }
+
+  loadItems() {
+    get(apiBasePath, {
+      headers: {
+        Authorization: this.props.authorization,
+      },
+    })
+      .then((data) => {
+        this.setState({ items: data });
+      });
+  }
+
   render() {
     return (
       <div>
-        <TopBar/>
+        <TopBar />
 
         <DeleteItemModal
           itemId={this.state.deleteItemId}
           modalOpen={this.state.deleteModalOpen}
           close={() => {
-            this.setState({ deleteModalOpen: false })
+            this.setState({ deleteModalOpen: false });
           }}
           itemDeleted={this.loadItems}
         />
@@ -77,40 +78,42 @@ class List extends Component {
           <Grid.Row>
             <Table fluid="true">
               <thead>
-              <tr>
-                <th>Title</th>
-                <th>Location</th>
-                <th>Venue</th>
-                <th>Date</th>
-                <th>Visible?</th>
-                <th width="10%">Aktionen</th>
-              </tr>
+                <tr>
+                  <th>Title</th>
+                  <th>Location</th>
+                  <th>Venue</th>
+                  <th>Date</th>
+                  <th>Visible?</th>
+                  <th width="10%">Aktionen</th>
+                </tr>
               </thead>
 
               <tbody>
-
-              {
-                this.state.items.map((item) =>
-                  <ListItemRow
-                    key={item._id}
-                    item={item}
-                    deleteItem={this.deleteItem}
-                  />
-                )
-              }
+                {
+                  this.state.items.map(item =>
+                    (
+                      <ListItemRow
+                        key={item._id}
+                        item={item}
+                        deleteItem={this.deleteItem}
+                      />
+                    ))
+                }
               </tbody>
             </Table>
           </Grid.Row>
         </Grid>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    authorization: `Bearer ${state.auth.token}`,
-  }
+const mapStateToProps = state => ({
+  authorization: `Bearer ${state.auth.token}`,
+});
+
+List.propTypes = {
+  authorization: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(List);

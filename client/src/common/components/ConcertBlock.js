@@ -4,7 +4,7 @@ import { Table } from 'semantic-ui-react';
 
 import ConcertElement from './ConcertElement';
 
-function ConcertBlock({ concerts, limit }) {
+const ConcertBlock = ({ concerts, limit }) => {
   if (!concerts || concerts.length === 0) {
     return (
       <p>-</p>
@@ -24,7 +24,7 @@ function ConcertBlock({ concerts, limit }) {
       </tbody>
     </Table>
   );
-}
+};
 
 ConcertBlock.propTypes = {
   concerts: PropTypes.object.isRequired,
