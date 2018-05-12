@@ -15,6 +15,7 @@ before_install:
 - bash ./.travis/scripts/init.sh
 - bash ./.travis/scripts/clone.sh
 script:
+- cd ./client && npm install && cd ..
 - npm run build
 - bash ./.travis/scripts/deploy.sh
 branches:
