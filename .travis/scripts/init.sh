@@ -15,8 +15,14 @@ unzip assets.zip -d assets
 chmod 600 ./assets/largier_bb_key
 chmod 600 ./assets/server_key
 
+echo './assets'
+ll ./assets/
+
 cp ./assets/largier_bb_key ~/.ssh/
 cp ./assets/server_key ~/.ssh/
+
+echo '~/.ssh'
+ll ~/.ssh/
 
 # get server host
 serverHost=`cat ./assets/server_host`
@@ -24,6 +30,9 @@ serverHost=`cat ./assets/server_host`
 sed -i 's/${server_host}/'$serverHost'/g' config
 # append to ~/.ssh/config file
 cat ./assets/config >> ~/.ssh/config
+
+echo '~/.ssh/config'
+cat ~/.ssh/config
 
 ssh-keyscan $serverHost >> ~/.ssh/known_hosts
 

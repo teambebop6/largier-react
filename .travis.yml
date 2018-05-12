@@ -12,6 +12,7 @@ addons:
 before_install:
 - npm install -g npx
 - npm install -g pm2
+- npm install -g cpx
 - bash ./.travis/scripts/init.sh
 - bash ./.travis/scripts/clone.sh
 script:
