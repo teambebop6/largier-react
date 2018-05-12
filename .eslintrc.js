@@ -16,6 +16,8 @@ module.exports = {
         "enforceForRenamedProperties": false,
       }
     ],
+    "import/no-named-as-default": 0,
+    "react/prop-types": 0,
     "no-restricted-globals": ["error", "event"],
   },
 };

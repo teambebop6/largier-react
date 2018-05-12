@@ -12,37 +12,35 @@ const initialState = {
   authenticated: false,
 };
 
-export const authenticate = (username, password) => {
-  return dispatch => {
-    dispatch({
-      type: AUTH_REQUESTED,
-    });
-    return post('/api/auth/login', {
-      username,
-      password,
-    }).then((json) => {
-      console.log(json);
-      if (json.data.token) {
-        const { token, username, role } = json.data;
-        localStorage.setItem('username', username);
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
-        dispatch({
-          type: AUTH_ALLOWED,
-          payload: {
-            token,
-            username,
-            role,
-          },
-        });
-      }
-    }).catch((error) => {
-      console.error(error);
+export const authenticate = (username, password) => (dispatch) => {
+  dispatch({
+    type: AUTH_REQUESTED,
+  });
+  return post('/api/auth/login', {
+    username,
+    password,
+  }).then((json) => {
+    console.log(json);
+    if (json.data.token) {
+      const { token, username: un, role } = json.data;
+      localStorage.setItem('username', un);
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
       dispatch({
-        type: AUTH_DECLINED,
-      })
-    })
-  }
+        type: AUTH_ALLOWED,
+        payload: {
+          token,
+          un,
+          role,
+        },
+      });
+    }
+  }).catch((error) => {
+    console.error(error);
+    dispatch({
+      type: AUTH_DECLINED,
+    });
+  });
 };
 
 export default (state = initialState, action) => {
@@ -70,6 +68,6 @@ export default (state = initialState, action) => {
         authenticated: false,
       };
     default:
-      return state
+      return state;
   }
-}
+};
