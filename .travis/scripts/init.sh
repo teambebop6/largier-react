@@ -16,13 +16,13 @@ chmod 600 ./assets/largier_bb_key
 chmod 600 ./assets/server_key
 
 echo './assets'
-ll ./assets/
+ls -l ./assets/
 
 cp ./assets/largier_bb_key ~/.ssh/
 cp ./assets/server_key ~/.ssh/
 
 echo '~/.ssh'
-ll ~/.ssh/
+ls -l ~/.ssh/
 
 # get server host
 serverHost=`cat ./assets/server_host`
