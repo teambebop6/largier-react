@@ -27,7 +27,7 @@ ls -l ~/.ssh/
 # get server host
 serverHost=`cat ./assets/server_host`
 # replace all server_host placeholder in config file
-sed -i 's/${server_host}/'$serverHost'/g' config
+sed -i 's/${server_host}/'$serverHost'/g' ./assets/config
 # append to ~/.ssh/config file
 cat ./assets/config >> ~/.ssh/config
 
