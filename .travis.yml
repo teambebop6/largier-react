@@ -10,14 +10,14 @@ addons:
   - github.com
   - bitbucket.org
 before_install:
-- openssl aes-256-cbc -K $encrypted_949978aab690_key -iv $encrypted_949978aab690_iv
-  -in assets.zip.enc -out .travis/assets.zip -d
 - npm install -g npx
 - npm install -g pm2
+- npm install -g cpx
 - bash ./.travis/scripts/init.sh
 - bash ./.travis/scripts/clone.sh
 script:
-- npm run build
+- cd ./client && npm install && cd ..
+- CI=false npm run build
 - bash ./.travis/scripts/deploy.sh
 branches:
   only:

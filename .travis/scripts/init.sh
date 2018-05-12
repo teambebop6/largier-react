@@ -7,23 +7,32 @@ echo branch is $TRAVIS_BRANCH
 # import ssh keys
 openssl aes-256-cbc -K $encrypted_949978aab690_key -iv $encrypted_949978aab690_iv -in .travis/assets.zip.enc -out assets.zip -d
 
-unzip assets.zip
+unzip assets.zip -d assets
 
 # Start SSH agent
 #eval $(ssh-agent -s)
 
-chmod 600 largier_bb_key
-chmod 600 server_key
+chmod 600 ./assets/largier_bb_key
+chmod 600 ./assets/server_key
 
-cp largier_bb_key ~/.ssh/
-cp server_key ~/.ssh/
+echo './assets'
+ls -l ./assets/
+
+cp ./assets/largier_bb_key ~/.ssh/
+cp ./assets/server_key ~/.ssh/
+
+echo '~/.ssh'
+ls -l ~/.ssh/
 
 # get server host
-serverHost=`cat server_host`
+serverHost=`cat ./assets/server_host`
 # replace all server_host placeholder in config file
-sed -i 's/${server_host}/'$serverHost'/g' config
+sed -i 's/${server_host}/'$serverHost'/g' ./assets/config
 # append to ~/.ssh/config file
-cat config >> ~/.ssh/config
+cat ./assets/config >> ~/.ssh/config
+
+echo '~/.ssh/config'
+cat ~/.ssh/config
 
 ssh-keyscan $serverHost >> ~/.ssh/known_hosts
 

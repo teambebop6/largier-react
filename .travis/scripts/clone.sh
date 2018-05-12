@@ -22,4 +22,4 @@ echo $branchName > branch
 sed -i 's/${branch}/'$branchName'/g' ecosystem.config.js
 
 # clone built project
-git clone git@bitbucket.org:teambebop6/largier-built.git .build
+git clone git@bitbucket.org:teambebop6/largier-built.git dist
