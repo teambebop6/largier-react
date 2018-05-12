@@ -12,11 +12,11 @@ unzip assets.zip
 # Start SSH agent
 #eval $(ssh-agent -s)
 
-chmod 600 largier_bb_key
-chmod 600 server_key
+chmod 600 ./assets/largier_bb_key
+chmod 600 ./assets/server_key
 
-cp largier_bb_key ~/.ssh/
-cp server_key ~/.ssh/
+cp ./assets/largier_bb_key ~/.ssh/
+cp ./assets/server_key ~/.ssh/
 
 # get server host
 serverHost=`cat server_host`
