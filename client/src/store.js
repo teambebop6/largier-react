@@ -1,7 +1,7 @@
 /**
  * Created by Henry Huang.
  */
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
@@ -16,19 +16,22 @@ const enhancers = [];
 const middleware = [
   thunk,
   routerMiddleware(history),
-  logger,
 ];
 
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(logger);
+}
+
 if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.devToolsExtension;
+  const { devToolsExtension } = window;
   if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension())
+    enhancers.push(devToolsExtension());
   }
 }
 
 const composedEnhancers = compose(
   applyMiddleware(...middleware),
-  ...enhancers
+  ...enhancers,
 );
 
 const store = createStore(

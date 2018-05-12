@@ -3,50 +3,61 @@
  */
 
 export const post = (endpoint, data, opts) => {
-
   const options = {
     method: 'post',
+    headers: {},
+  };
+
+  // if (!opts || !opts.autoHeaders) {
+  //   options.headers = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  // }
+
+  if (data instanceof FormData) {
+    options.body = data;
+  } else {
+    Object.assign(options.headers, {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+    options.body = JSON.stringify(data);
   }
 
-  if(!opts || !opts.autoHeaders){
-    options.headers = {
-      'Content-Type':'application/json'
-    }
+  if (opts && opts.headers) {
+    Object.assign(options.headers, opts.headers);
   }
 
-  if(data instanceof FormData){
-    options.body = data
-  }
-  else{
-    options.body = JSON.stringify(data)
-  }
+  return fetch(endpoint, options).then(response => (
+    response.json().then((json) => {
+      if (!response.ok) {
+        return Promise.reject(json);
+      }
+      return Promise.resolve(json);
+    })
+  ));
+};
 
-  if(opts && opts.headers){
-    options.headers = opts.headers
+
+export const get = (endpoint, opts) => {
+  console.log(endpoint);
+
+  const options = {
+    method: 'get',
+  };
+  if (opts) {
+    Object.assign(options, opts);
   }
 
   console.log(options);
-
-  return fetch(endpoint, options).then(response => {
-    return response.json().then(json => {
-      if (!response.ok) {
-        return Promise.reject(json);
-      }
-      return Promise.resolve(json);
-    })
-  });
-}
-
-
-export const get = (endpoint) => {
-  console.log(endpoint);
-  return fetch(endpoint).then(response => {
+  return fetch(endpoint, options).then((response) => {
     console.log(response);
-    return response.json().then(json => {
+    return response.json().then((json) => {
       if (!response.ok) {
         return Promise.reject(json);
       }
       return Promise.resolve(json);
-    })
-  })
+    });
+  });
 };

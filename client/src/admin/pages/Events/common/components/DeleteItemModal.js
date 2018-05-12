@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 import { post } from '../../../../../common/helpers/api';
 import { apiBasePath } from '../globals';
 import path from 'path';
+import { push } from "react-router-redux";
+import { deleteEvent } from '../../../../modules/event';
 
-export default class DeleteItemModal extends Component{
+class DeleteItemModal extends Component{
 
   confirm(){
     console.log("Item id is:");
     console.log(this.props.itemId);
+    const { deleteEvent } = this.props;
 
-    post(path.join(apiBasePath, '/delete'), {
-      id: this.props.itemId
-    }).then((res) =>{
-      console.log(res)
-      if(res.ok){
-        console.log("Successfully deleted")
-        this.props.itemDeleted()
-      }
-      this.props.close()
-
+    deleteEvent(this.props.itemId).then(() => {
+      this.props.itemDeleted();
+      this.props.close();
     }).catch((err) =>{
       console.log(err);
-      this.props.close()
+      this.props.close();
     });
   }
 
@@ -33,7 +31,7 @@ export default class DeleteItemModal extends Component{
   render(){
     return(
       <div>
-        <Modal 
+        <Modal
           open={this.props.modalOpen}
           size='small'
         >
@@ -57,3 +55,14 @@ export default class DeleteItemModal extends Component{
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    authorization: `Bearer ${state.auth.token}`,
+  }
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  deleteEvent,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteItemModal);

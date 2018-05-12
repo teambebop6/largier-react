@@ -1,6 +1,7 @@
 /**
  * Created by Henry Huang.
  */
+/* eslint import/no-extraneous-dependencies: ["error", {"peerDependencies": true}] */
 import parseArgs from 'minimist';
 import upload from './upload';
 import sample from './sample';

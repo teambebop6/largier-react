@@ -21,12 +21,23 @@ export const authenticate = (username, password) => {
       username,
       password,
     }).then((json) => {
-      dispatch({
-        type: AUTH_ALLOWED,
-      });
-      // TODO use token
-      localStorage.setItem('admin', 'admin');
+      console.log(json);
+      if (json.data.token) {
+        const { token, username, role } = json.data;
+        localStorage.setItem('username', username);
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        dispatch({
+          type: AUTH_ALLOWED,
+          payload: {
+            token,
+            username,
+            role,
+          },
+        });
+      }
     }).catch((error) => {
+      console.error(error);
       dispatch({
         type: AUTH_DECLINED,
       })
@@ -40,12 +51,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isChecking: true,
+        username: null,
+        token: null,
       };
     case AUTH_ALLOWED:
       return {
         ...state,
         isChecking: false,
         authenticated: true,
+        username: action.payload.username,
+        token: action.payload.token,
+        role: action.payload.role,
       };
     case AUTH_DECLINED:
       return {

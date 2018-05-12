@@ -6,24 +6,30 @@
     "start": "NODE_ENV=production node .",
     "server": "PORT=3001 nodemon --exec babel-node src",
     "clean": "rimraf dist",
-    "copy": "npm run copy:client && npm run copy:package.json",
+    "copy": "npm run copy:client && npm run copy:package.json && npm run copy:pm2",
     "build": "npm run clean && npm run build:server && npm run build:client && npm run copy",
     "dist": "zip -r dist.zip dist",
     "upload": "babel-node tasks -a upload",
     "copy:client": "cpx \"client/build/**/*\" dist/public",
     "copy:package.json": "cpx \"package*.json\" dist/",
+    "copy:pm2": "cpx \"pm2.*.js\" dist/",
     "build:client": "cd client && npm run build && cd ..",
     "build:server": "babel src -d dist",
-    "lint": "./node_modules/.bin/eslint src/"
+    "lint": "./node_modules/.bin/eslint src/ tasks/"
   },
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
     "body-parser": "~1.18.2",
+    "connect-redis": "^3.3.3",
     "cookie-parser": "~1.4.3",
     "debug": "^3.1.0",
     "express": "^4.16.2",
+    "express-jwt": "^5.3.0",
+    "express-session": "^1.15.6",
+    "hoek": "^5.0.3",
+    "jsonwebtoken": "^8.1.1",
     "mime": "^2.2.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.20.1",
@@ -40,6 +46,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "ghreleases": "^2.0.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "pre-commit": "^1.2.2"
   }
 }
