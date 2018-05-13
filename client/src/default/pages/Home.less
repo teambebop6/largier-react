@@ -1,3 +1,7 @@
+
+@gold: #d5b476;
+@grey: #4a4a4a;
+
 html, body{
   //background:#e9f7fc;
 }
@@ -29,9 +33,19 @@ p{
 }
 
 .headerPicture{
-  width:100%;
-  height:700px;
-  margin-top:58px;
+position: relative;
+width: 100%;
+height: 700px;
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+}
+
+.headerFrame{
+  top:0;left:0;bottom:0;right:0;
+  position:absolute;
+  margin:3rem;
+  border:1px solid @gold;
 }
 
 .ui.grid.bio-grid{

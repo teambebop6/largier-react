@@ -5,25 +5,26 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Grid, Image } from 'semantic-ui-react';
+import { Grid, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { I18n } from 'react-i18next';
 
 import { get } from '../../common/helpers/api';
 // Common components
+import TopLeftLinks from '../../common/components/TopLeftLinks';
+import TopRightLinks from '../../common/components/TopRightLinks';
 import Nav from '../../common/components/Nav';
 import ConcertBlock from '../../common/components/ConcertBlock';
 // Resources
 import './Home.less';
 import Logo from '../../res/images/logo.png';
-import Header from '../../res/images/header.jpg';
+import Header from '../../res/images/headerChurch.png';
 
 import i18n from '../../i18n';
 
-
-const selectLanguage = (lng) => {
-  i18n.changeLanguage(lng);
-};
+// const selectLanguage = (lng) => {
+//   i18n.changeLanguage(lng);
+// };
 
 class Home extends Component {
   constructor(props) {
@@ -49,21 +50,15 @@ class Home extends Component {
     return (
       <div>
 
-        <Nav />
 
-        <div className="header" style={{ background: `url(${Header})` }} />
-
-        <Grid className="page">
-          <Grid.Row>
-            <Grid.Column textAlign="center">
-              <Image src={Logo} centered />
-              <p>
-                <Button onClick={() => selectLanguage('en')}>English</Button>
-                <Button onClick={() => selectLanguage('de')}>Deutsch</Button>
-              </p>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <div className="headerPicture" style={{ backgroundImage: `url(${Header})` }}>
+          <div className="headerFrame">
+            <TopLeftLinks />
+            <TopRightLinks />
+          </div>
+          <Nav />
+          <Image src={Logo} centered />
+        </div>
 
         <Grid centered className="page default-grid intro-grid" id="about">
           <Grid.Row columns="two">
