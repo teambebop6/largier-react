@@ -6,19 +6,12 @@ cache:
   directories:
   - node_modules
 addons:
-  ssh_known_hosts:
-  - github.com
-  - bitbucket.org
+  ssh_known_hosts: github.com
 before_install:
-- npm install -g npx
-- npm install -g pm2
-- npm install -g cpx
-- bash ./.travis/scripts/init.sh
-- bash ./.travis/scripts/clone.sh
+- bash ./.travis/checkout_secret.sh
 script:
-- cd ./client && npm install && cd ..
-- CI=false npm run build
-- bash ./.travis/scripts/deploy.sh
+- npm run build
+- npm run dist
 branches:
   only:
   - master

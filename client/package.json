@@ -141,23 +141,35 @@
       ],
       "no-underscore-dangle": 0,
       "prefer-destructuring": [
-        "error", {
+        "error",
+        {
           "array": false,
           "object": true
-        }, {
+        },
+        {
           "enforceForRenamedProperties": false
         }
       ],
-      "jsx-a11y/label-has-for": [2, {
-        "components": ["Label"],
-        "required": {
-          "every": ["id"]
-        },
-        "allowChildren": false
-      }],
+      "jsx-a11y/label-has-for": [
+        2,
+        {
+          "components": [
+            "Label"
+          ],
+          "required": {
+            "every": [
+              "id"
+            ]
+          },
+          "allowChildren": false
+        }
+      ],
       "react/prop-types": 0,
       "import/no-named-as-default": 0,
-      "no-restricted-globals": ["error", "event"]
+      "no-restricted-globals": [
+        "error",
+        "event"
+      ]
     },
     "env": {
       "browser": true
