@@ -1,6 +1,6 @@
 src/largier-secret/
 .travis/id_rsa_largier
-
+.env.local
 ### Node template
 # Logs
 logs
@@ -119,5 +119,3 @@ client/node_modules
 dist
 dist.zip
 .travis/assets/
-
-

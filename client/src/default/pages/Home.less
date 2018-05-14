@@ -1,12 +1,50 @@
-html, body{
-  //background:#e9f7fc;
+@gold: #d5b476;
+@grey: #4a4a4a;
+
+@textColor: rgba(255,255,255,0.75);
+
+h3{
+  font-family: 'Montserrat', sans-serif;
+  font-size:2rem;
+  font-weight:400;
 }
 
-.default-grid{
-p{
+.ui.grid.default-grid{
+  font-family: 'Montserrat', sans-serif;
+  margin-top:8rem;
+
+}
+
+.default-grid p {
   line-height:2.4rem;
   font-size:1.3rem;
 }
+
+.concertsBlock td{
+  font-size:1.05rem;
+}
+
+.rightContainer{
+  float:right;
+}
+.leftContainer{
+  float:left;
+}
+
+h2.title, p.title{ 
+  font-family: 'Montserrat', sans-serif;
+  text-transform:uppercase;
+  color: @gold;
+  font-size:2.7rem;
+  margin-top:1.4rem;
+  font-weight:400;
+}
+
+.paragraphTitle{
+
+  height:0;
+  width:100%;
+
 }
 
 .ui.grid.nav-grid{
@@ -28,10 +66,26 @@ p{
   }
 }
 
-.header{
-  width:100%;
-  height:700px;
-  margin-top:58px;
+.headerPicture{
+  overflow:auto;
+  position: relative;
+  width: 100%;
+  min-height: 790px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  padding-bottom:3rem;
+}
+
+.headerFrame{
+  top:0;left:0;bottom:0;right:0;
+  position:absolute;
+  margin:3rem;
+  border:1px solid @gold;
+}
+
+.headerContent{
+  overflow:hidden;
 }
 
 .ui.grid.bio-grid{
@@ -40,6 +94,17 @@ p{
   background:white;
 }
 
+img.logo{
+  margin-top: 28rem;
+  width: 550px; 
+}
+
+.chantalDescription{
+  color:@textColor;
+  font-family: 'Montserrat', sans-serif; 
+  font-size:1.2rem;
+  margin-top:3rem !important;
+}
 
 .ui.grid.logo-grid{
   background:white;
@@ -94,6 +159,9 @@ p{
   height:6rem;
 }
 
+.ui.grid.default-grid{ 
+  font-family: 'Montserrat', sans-serif;
+}
 .ui.grid > .row.title-row{
   margin-left:1rem;
 }
