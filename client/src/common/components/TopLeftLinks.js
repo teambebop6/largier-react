@@ -4,36 +4,31 @@ import { Menu, Popup, Icon } from 'semantic-ui-react';
 
 import './TopLeftLinks.less';
 
+const popupStyle = {
+  borderRadius: 0,
+  opacity: 0.7,
+  padding: '1rem',
+};
+
 export default () => (
   (
     <Menu secondary inverted className="topLeftLinksMenu">
-      <Menu.Item icon>
-        <Popup
-          trigger={
-            <a href="mailto:info@chantallargier.com">
-              <Icon name="mail" />
-            </a>
-          }
-          hoverable
-        >
-          <p>click me to send an email!</p>
-        </Popup>
+      <Menu.Item icon href="mailto:info@chantallargier.com">
+        <Icon name="mail" />
       </Menu.Item>
       <Menu.Item icon>
+
         <Popup
+          inverted
+          style={popupStyle}
           trigger={<Icon name="wechat" />}
           hoverable
         >
           <p>Wechat Id: chantallargier</p>
         </Popup>
       </Menu.Item>
-      <Menu.Item icon>
-        <Popup
-          trigger={<Icon name="facebook" />}
-          hoverable
-        >
-          <p><a href="http://facebook.com/chantallargier">http://facebook.com/chantallargier</a></p>
-        </Popup>
+      <Menu.Item icon href="http://facebook.com/chantallargier" target="_blank">
+        <Icon name="facebook" />
       </Menu.Item>
 
     </Menu>

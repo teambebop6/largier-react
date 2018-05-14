@@ -18,6 +18,7 @@ import ConcertBlock from '../../common/components/ConcertBlock';
 // Resources
 import './Home.less';
 import Logo from '../../res/images/logo.png';
+import Avatar from '../../res/images/avatar.jpg';
 import Header from '../../res/images/headerChurch.png';
 
 import i18n from '../../i18n';
@@ -50,63 +51,60 @@ class Home extends Component {
     return (
       <div>
 
+        <Nav />
 
         <div className="headerPicture" style={{ backgroundImage: `url(${Header})` }}>
-          <div className="headerFrame">
+          <div className="headerFrame" />
+          <div className="headerContent">
             <TopLeftLinks />
             <TopRightLinks />
+            <Image className="logo" src={Logo} centered />
+            <Grid className="page">
+              <Grid.Row centered>
+                <Grid.Column textAlign="center" width="7">
+                  <I18n>
+                    {
+                      t => (
+                        <p className="chantalDescription">
+                          <strong>{t('swisspianist')}</strong> {t('intro')}
+                        </p>
+                      )
+                    }
+                  </I18n>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </div>
-          <Nav />
-          <Image src={Logo} centered />
         </div>
 
-        <Grid centered className="page default-grid intro-grid" id="about">
-          <Grid.Row columns="two">
-            <Grid.Column location="center">
-              <I18n>
-                {
-                  t => (
-                    <p>
-                      <strong>{t('swisspianist')}</strong> {t('intro')}
-                    </p>
-                  )
-                }
-              </I18n>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        { /*  BIO */ }
 
-        <Grid centered className="page bio-grid default-grid">
-          <Grid.Row columns="two">
-            <Grid.Column>
-              <h2>Bio</h2>
+        <Grid className="page default-grid" id="bioAnchor">
+          <div className="paragraphTitle">
+            <p className="leftContainer title">Bio</p>
+            <div className="rightContainer">
+              <Image size="medium" src={Avatar} style={{ marginTop: '8rem' }} />
+            </div>
+          </div>
+          <Grid.Row centered>
+            <Grid.Column width="7">
               <p>
                 <I18n>{t => t('bio1')}</I18n>
               </p>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row columns="two">
-            <Grid.Column>
               <p>
-                <I18n>
-                  {
-                    t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} />
-                  }
-                </I18n>
+                <I18n>{t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> }</I18n>
               </p>
             </Grid.Column>
           </Grid.Row>
         </Grid>
 
+        { /* CONCERTS */ }
 
-        <Grid className="page concerts-grid" id="concerts">
-          <Grid.Row className="title-row">
-            <h2>
-              <I18n>{t => t('concerts')}</I18n>
-            </h2>
-          </Grid.Row>
+
+        <Grid className="page default-grid concertsBlock" id="concerts">
           <Grid.Row>
             <Grid.Column>
+              <h2 className="title">Concerts</h2>
               <h3>
                 <I18n>{t => t('upcoming-concerts')}</I18n>
               </h3>
@@ -126,45 +124,42 @@ class Home extends Component {
           </Grid.Row>
         </Grid>
 
-        <Grid className="page media-grid" id="media">
-          <Grid.Row className="title-row">
-            <h2>
-              <I18n>{t => t('media')}</I18n>
-
-            </h2>
-          </Grid.Row>
-          <Grid.Row className="title-row">
-            <iframe
-              title="Video 1"
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/1VgdOcGl-q8"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen=""
-            />
-            <iframe
-              title="Video 2"
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/oqXjA0Uh38c"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen=""
-            />
-            <iframe
-              title="Video 3"
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/cnhkhJmc__I"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen=""
-            />
+        <Grid className="page default-grid" id="media">
+          <Grid.Row>
+            <Grid.Column>
+              <h2 className="title">Media</h2>
+              <iframe
+                title="Video 1"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/1VgdOcGl-q8"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen=""
+              />
+              <iframe
+                title="Video 2"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/oqXjA0Uh38c"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen=""
+              />
+              <iframe
+                title="Video 3"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/cnhkhJmc__I"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen=""
+              />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
 
-        <Grid className="page footer-grid">
+        <Grid className="page default-grid">
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>

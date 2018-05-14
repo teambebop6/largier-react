@@ -28,9 +28,6 @@ const production = {
 const config = {
   ROOT: __dirname,
   DB_HOST: 'localhost',
-  token: {
-    secret: "asdf"
-  }
 };
 
 switch (env) {

@@ -23,8 +23,8 @@ export default () => (
       <Grid.Row>
         <Grid.Column textAlign="center">
           <Menu className="compact secondary inverted main-menu">
-            <Menu.Item link onClick={() => scrollTo('about')}>
-              <I18n>{t => t('about')}</I18n>
+            <Menu.Item link onClick={() => scrollTo('bioAnchor')}>
+              <I18n>{t => t('bio')}</I18n>
             </Menu.Item>
             <Menu.Item link onClick={() => scrollTo('concerts')}>
               <I18n>{t => t('concerts')}</I18n>
