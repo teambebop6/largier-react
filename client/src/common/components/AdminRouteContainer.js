@@ -1,15 +1,13 @@
 /**
  * Created by Henry Huang.
  */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-const AdminRouteContainer = ({ component, auth, ...rest }) => {
+const AdminRouteContainer = ({ component: Component, auth, ...rest }) => {
   const isAuthenticated = auth && auth.token && auth.role === 'admin';
-  console.log(auth);
-  console.log(isAuthenticated);
   return (
     <Route
       {...rest}

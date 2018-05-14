@@ -17,7 +17,6 @@ export default class TopBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.logout = this.logout.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 

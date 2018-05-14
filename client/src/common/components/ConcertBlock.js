@@ -33,9 +33,13 @@ const ConcertBlock = ({ concerts, limit }) => {
   );
 };
 
+ConcertBlock.defaultProps = {
+  limit: 5,
+};
+
 ConcertBlock.propTypes = {
-  concerts: PropTypes.object.isRequired,
-  limit: PropTypes.number.isRequired,
+  concerts: PropTypes.array.isRequired,
+  limit: PropTypes.number,
 };
 
 export default ConcertBlock;
