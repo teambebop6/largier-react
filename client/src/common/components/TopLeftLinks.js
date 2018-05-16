@@ -21,7 +21,7 @@ export default () => (
         <Popup
           inverted
           style={popupStyle}
-          trigger={<Icon name="wechat" />}
+          trigger={<Icon name="weixin" />}
           hoverable
         >
           <p>Wechat Id: chantallargier</p>
