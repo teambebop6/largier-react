@@ -8,24 +8,24 @@ import { connect } from 'react-redux';
 import { Grid, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { I18n } from 'react-i18next';
+import { Player, ControlBar } from 'video-react';
 
 import { get } from '../../common/helpers/api';
 // Common components
 import TopLeftLinks from '../../common/components/TopLeftLinks';
 import TopRightLinks from '../../common/components/TopRightLinks';
 import Nav from '../../common/components/Nav';
+import SimpleSlider from '../../common/components/Slider';
 import ConcertBlock from '../../common/components/ConcertBlock';
 // Resources
 import './Home.less';
 import Logo from '../../res/images/logo.png';
 import Avatar from '../../res/images/avatar.jpg';
 import Header from '../../res/images/headerChurch.png';
+import Video from '../../res/images/largier.mp4';
 
 import i18n from '../../i18n';
 
-// const selectLanguage = (lng) => {
-//   i18n.changeLanguage(lng);
-// };
 
 class Home extends Component {
   constructor(props) {
@@ -52,50 +52,52 @@ class Home extends Component {
       <div>
 
         <Nav />
+        <div className="headerFrame" />
 
         <div className="headerPicture" style={{ backgroundImage: `url(${Header})` }}>
-          <div className="headerFrame" />
           <div className="headerContent">
             <TopLeftLinks />
             <TopRightLinks />
-            <Image className="logo" src={Logo} centered />
-            <Grid className="page">
-              <Grid.Row centered>
-                <Grid.Column textAlign="center" width="7">
-                  <I18n>
-                    {
-                      t => (
-                        <p className="chantalDescription">
-                          <strong>{t('swisspianist')}</strong> {t('intro')}
-                        </p>
-                      )
-                    }
-                  </I18n>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+            <Player
+              fluid="false"
+              height="100vh"
+              playsInline
+              autoPlay
+              muted
+              loop
+              poster="headerChurch.png"
+              src={Video}
+            >
+              <ControlBar disabled />
+            </Player>
+            <div className="headerTextContent">
+              <Image className="logo" src={Logo} centered />
+              <I18n>
+                {
+                  t => (
+                    <p className="chantalDescription">
+                      <strong>{t('swisspianist')}</strong> {t('intro')}
+                    </p>
+                  )
+                }
+              </I18n>
+            </div>
           </div>
         </div>
 
         { /*  BIO */ }
 
         <Grid className="page default-grid" id="bioAnchor">
-          <div className="paragraphTitle">
-            <p className="leftContainer title">Bio</p>
-            <div className="rightContainer">
-              <Image size="medium" src={Avatar} style={{ marginTop: '8rem' }} />
-            </div>
+          <div className="sectionTitle">
+            <h2 className="title">Bio</h2>
           </div>
-          <Grid.Row centered>
-            <Grid.Column width="7">
-              <p>
-                <I18n>{t => t('bio1')}</I18n>
-              </p>
-              <p>
-                <I18n>{t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> }</I18n>
-              </p>
-            </Grid.Column>
-          </Grid.Row>
+          <div className="bioParagraph col-2">
+            <p><I18n>{t => t('bio1')}</I18n></p>
+            <p><I18n>{t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> }</I18n></p>
+          </div>
+          <div className="largierAvatar col-2">
+            <Image src={Avatar} />
+          </div>
         </Grid>
 
         { /* CONCERTS */ }
@@ -128,36 +130,13 @@ class Home extends Component {
           <Grid.Row>
             <Grid.Column>
               <h2 className="title">Media</h2>
-              <iframe
-                title="Video 1"
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/1VgdOcGl-q8"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen=""
-              />
-              <iframe
-                title="Video 2"
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/oqXjA0Uh38c"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen=""
-              />
-              <iframe
-                title="Video 3"
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/cnhkhJmc__I"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen=""
-              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
+        <div className="mediaSection">
+          <SimpleSlider />
+        </div>
 
         <Grid className="page default-grid">
           <Grid.Row>
