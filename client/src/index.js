@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'semantic-ui-css/semantic.min.css';
+import './../node_modules/video-react/dist/video-react.css';
 import store, { history } from './store';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
