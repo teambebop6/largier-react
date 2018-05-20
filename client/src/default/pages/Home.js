@@ -19,9 +19,9 @@ import SimpleSlider from '../../common/components/Slider';
 import ConcertBlock from '../../common/components/ConcertBlock';
 // Resources
 import './Home.less';
-import Logo from '../../res/images/logo.png';
+import Logo from '../../res/images/logoWhite.svg';
 import Avatar from '../../res/images/avatar.jpg';
-import Header from '../../res/images/headerChurch.png';
+import Header from '../../res/images/headerChurch.jpg';
 import Video from '../../res/images/largier.mp4';
 
 import i18n from '../../i18n';
