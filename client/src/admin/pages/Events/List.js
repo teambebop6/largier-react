@@ -82,6 +82,7 @@ class List extends Component {
                   <th>Title</th>
                   <th>Location</th>
                   <th>Venue</th>
+                  <th>Link</th>
                   <th>Date</th>
                   <th>Visible?</th>
                   <th width="10%">Aktionen</th>
