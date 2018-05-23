@@ -22,12 +22,6 @@ class EditItemForm extends Component {
 
     this.state = {
       files: [],
-      // eventTypeOptions: [
-      //   {
-      //     text: 'Concert',
-      //     value: 'concert',
-      //   },
-      // ],
     };
   }
 
@@ -134,6 +128,13 @@ class EditItemForm extends Component {
                   name="venue"
                   title="Venue"
                   value={item.venue || ''}
+                  onChange={this.onChange}
+                />
+
+                <SingleLineTextField
+                  name="link"
+                  title="Link"
+                  value={item.link || ''}
                   onChange={this.onChange}
                 />
 

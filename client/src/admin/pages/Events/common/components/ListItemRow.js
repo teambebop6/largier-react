@@ -58,6 +58,9 @@ class ListItemRow extends Component {
           {item.venue}
         </td>
         <td>
+          {item.link}
+        </td>
+        <td>
           {moment(item.date).format('LLLL')}
         </td>
 
