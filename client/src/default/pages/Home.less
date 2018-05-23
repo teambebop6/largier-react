@@ -19,6 +19,22 @@ h3{
   font-weight:400;
 }
 
+.clearfix{
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.easing{
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+
 .ui.grid.default-grid{
   margin-top:8rem;
 
@@ -155,14 +171,15 @@ video {
 }
 
 .headerTextContent{
-  width: 50%;
-  max-width: 500px;
+  // width: 50%;
+  // max-width: 500px;
   text-align: center;
   top: 40vh;
   left: 0;
   right: 0;
   margin: auto;
   position: absolute;
+  z-index: 10;
 }
 
 img.logo{
@@ -172,9 +189,17 @@ img.logo{
 
 .chantalDescription{
   color:@textColor;
-  font-size:1rem;
+  font-size: 1rem;
   font-weight: 100;
-  text-shadow: 0 0 10px rgba(0,0,0,.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,.2);
+  padding: 15px 24%;
+  margin-top: 10px;
+  .easing;
+
+  &:hover{
+    background: rgba(0,0,0,.4);
+  };
 }
 
 .ui.grid.logo-grid{
@@ -188,8 +213,7 @@ img.logo{
   padding-top:4rem;
   padding-bottom:4rem;
 
-  .ui.basic.table
-  {
+  .ui.basic.table{
     > tbody {
 
       > tr{
@@ -241,7 +265,7 @@ img.logo{
   height:132px;
 }
 
-  .video-react{display: none;}
+.video-react{display: none;}
 
 @media only screen and (max-width: 900px) {
   .video-react{display: none;}
@@ -249,8 +273,17 @@ img.logo{
 
 @media only screen and (max-width: 768px) {
   .headerTextContent{
-    width: 90%;
-    img{width: 80%;}
+    top: 50vh;
+    img{
+      width: 80%;
+      fill: @gold;
+    }
+  }
+  .headerPicture{
+    background-position: 73%;
+  }
+  .chantalDescription{
+    padding: 15px 15%;
   }
   .col-2{
     width: 100%;
@@ -259,6 +292,8 @@ img.logo{
 }
 
 @media only screen and (max-width: 480px) {
-
+  .chantalDescription{
+    padding: 15px;
+  }
 
 }
