@@ -91,7 +91,7 @@ router.post('/item/:id', upload.fields([
 
     reqItem._id = item._id;
 
-    reqItem.forEach((property) => {
+    Object.keys(reqItem).forEach((property) => {
       if (Object.prototype.hasOwnProperty.call(reqItem, property)) {
         item[property] = reqItem[property];
       }
