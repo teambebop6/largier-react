@@ -92,8 +92,15 @@ class Home extends Component {
             <h2 className="title">Bio</h2>
           </div>
           <div className="bioParagraph col-2">
-            <p><I18n>{t => t('bio1')}</I18n></p>
+            <p><I18n>{t => t('bio3')}</I18n></p>
+            <p><I18n>{t => t('bio4')}</I18n></p>
+            <p><I18n>{t => t('bio5')}</I18n></p>
+            <p><I18n>{t => t('bio6')}</I18n></p>
+            { /* <p><I18n>{t => t('bio1')}</I18n></p>
             <p><I18n>{t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> }</I18n></p>
+            */
+            }
+
           </div>
           <div className="largierAvatar col-2">
             <Image src={Avatar} />
