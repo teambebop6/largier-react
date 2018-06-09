@@ -28,6 +28,7 @@ i18next
             bio4: 'From 2014 Chantal had been teaching for 3 years students in piano for the Bachelor degree at the University in Zhaoqing in China. Chantal became an acclaimed pianist in China and performed in 100 concerts as a solo pianist and chamber musician in more than 20 cities in China. Her concert tours brought her to world-famous concert halls such as the Great Hall of the People in Beijing, the Oriental Center in Shanghai and the Shanghai Symphonie Hall. She played several times at the Swiss-Chinese Friendship Day at the invitation of the Swiss ambassador in Beijing.',
             bio5: 'Chantal is the first foreign pianist, who performed in China the “Drama concert”, which combines classical music with a theatrical performance. ',
             bio6: 'From August 2018 Chantal is teaching at the youth music school Pfannenstiel in Meilen in Zurich. ',
+            bio7: '',
             'show-all-concerts': 'Show all concerts',
             'upcoming-concerts': 'Upcoming',
             'past-concerts': 'Past',
