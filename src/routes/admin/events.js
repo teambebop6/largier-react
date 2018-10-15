@@ -38,6 +38,7 @@ router.get('/', (req, res) => {
     if (err) {
       return res.status(500).json(err);
     }
+    console.log(items);
     return res.json(items);
   });
 });

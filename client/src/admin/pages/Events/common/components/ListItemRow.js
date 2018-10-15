@@ -38,9 +38,7 @@ class ListItemRow extends Component {
           this.forceUpdate();
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => err);
   }
 
   render() {

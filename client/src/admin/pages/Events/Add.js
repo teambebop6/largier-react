@@ -39,9 +39,7 @@ class Add extends Component {
           history.push('./');
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => err);
   }
 
   render() {

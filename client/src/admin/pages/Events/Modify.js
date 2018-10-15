@@ -58,12 +58,7 @@ class Modify extends Component {
       .then((res) => {
         if (res.ok) {
           history.push('../');
-        } else {
-          console.log(res);
         }
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
 
@@ -79,13 +74,10 @@ class Modify extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state.event.eventFetched);
-  return {
-    authorization: `Bearer ${state.auth.token}`,
-    item: state.event.eventFetched,
-  };
-};
+const mapStateToProps = state => ({
+  authorization: `Bearer ${state.auth.token}`,
+  item: state.event.eventFetched,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchEvent,

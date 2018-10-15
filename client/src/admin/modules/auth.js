@@ -20,7 +20,6 @@ export const authenticate = (username, password) => (dispatch) => {
     username,
     password,
   }).then((json) => {
-    console.log(json);
     if (json.data.token) {
       const { token, username: un, role } = json.data;
       localStorage.setItem('username', un);
@@ -35,8 +34,7 @@ export const authenticate = (username, password) => (dispatch) => {
         },
       });
     }
-  }).catch((error) => {
-    console.error(error);
+  }).catch(() => {
     dispatch({
       type: AUTH_DECLINED,
     });

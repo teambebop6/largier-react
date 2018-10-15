@@ -8,7 +8,6 @@ import './Nav.less';
 
 const scrollTo = (id) => {
   const element = document.getElementById(id);
-  console.log(element);
   if (element) {
     element.scrollIntoView({
       block: 'start',
