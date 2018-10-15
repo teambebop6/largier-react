@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node .",
     "server": "PORT=3001 nodemon --exec babel-node src",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf client/build",
     "copy": "npm run copy:client && npm run copy:package.json && npm run copy:pm2",
     "build": "npm run build:server && npm run build:client && npm run copy",
     "dist": "zip -r dist.zip dist",
