@@ -41,8 +41,6 @@ export const post = (endpoint, data, opts) => {
 
 
 export const get = (endpoint, opts) => {
-  console.log(endpoint);
-
   const options = {
     method: 'get',
   };
