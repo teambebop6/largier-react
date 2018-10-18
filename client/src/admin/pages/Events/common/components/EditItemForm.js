@@ -31,14 +31,11 @@ class EditItemForm extends Component {
     let file = files.find(f => Object.keys(f)[0] === e.target.name);
 
     if (file === undefined) {
-      console.log('Adding new file to array..');
-
       file = {};
       file[e.target.name] = e.target.files[0];
 
       files.push(file);
     } else {
-      console.log('Updating old file in array..');
       file[e.target.name] = e.target.files[0];
       const index = files.indexOf(file);
       files[index] = file;
@@ -54,7 +51,6 @@ class EditItemForm extends Component {
 
   onChange(e) {
     this.props.item[e.target.name] = e.target.value;
-    console.log(this.props.item);
     this.forceUpdate();
   }
 
@@ -66,9 +62,6 @@ class EditItemForm extends Component {
     if (this.typeField && this.typeField.value) {
       this.props.item.type = this.typeField.value;
     }
-
-    console.log('Submitting:');
-    console.log(this.props.item);
 
     formData.append('item', JSON.stringify(this.props.item));
 

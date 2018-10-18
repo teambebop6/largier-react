@@ -39,10 +39,7 @@ class Home extends Component {
   componentDidMount() {
     get('/api/concerts?limit=5').then((res) => {
       this.setState(res.data);
-      console.log(this.state);
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).catch(err => err);
 
     i18n.changeLanguage('en');
   }

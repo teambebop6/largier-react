@@ -29,7 +29,6 @@ class Login extends Component {
     };
     this.onSubmit = (e) => {
       e.preventDefault();
-      console.log(this.state.value);
       const { authenticate: ath, changePage } = props;
       const { username, password } = this.state.value;
       ath(username, password).then(() => {

@@ -15,8 +15,6 @@ router.use('/admin', jwt({ secret: config.token.secret }), adminRouter);
 
 // Get concerts
 router.get('/concerts', (req, res) => {
-  const limit = parseInt(req.query.limit, 10);
-
   const findQuery = Event.find().sort({
     date: 'asc',
   });
@@ -26,9 +24,16 @@ router.get('/concerts', (req, res) => {
       return res.json(err);
     }
     console.log(events);
-    const upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now()))).splice(0, limit);
+    let upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now())));
 
-    const pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse().splice(0, limit);
+    let pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
+
+    // Limit
+    const limit = parseInt(req.query.limit, 10);
+    if (limit !== 0 && !isNaN(limit)) {
+      upcomingConcerts = upcomingConcerts.splice(0, limit);
+      pastConcerts = pastConcerts.splice(0, limit);
+    }
 
     return res.json({
       data: {

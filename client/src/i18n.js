@@ -60,12 +60,7 @@ i18next
         },
       },
     },
-    (err) => {
-      if (err) {
-        return console.error(err);
-      }
-      return null;
-    },
+    () => null,
   );
 
 export default i18next;

@@ -12,14 +12,10 @@ class DeleteItemModal extends Component {
   }
 
   confirm() {
-    console.log('Item id is:');
-    console.log(this.props.itemId);
-
     deleteEvent(this.props.itemId).then(() => {
       this.props.itemDeleted();
       this.props.close();
-    }).catch((err) => {
-      console.log(err);
+    }).catch(() => {
       this.props.close();
     });
   }

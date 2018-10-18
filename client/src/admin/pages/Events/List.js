@@ -46,10 +46,10 @@ class List extends Component {
       headers: {
         Authorization: this.props.authorization,
       },
-    })
-      .then((data) => {
-        this.setState({ items: data });
-      });
+    }).then((data) => {
+      if (!data) return;
+      this.setState({ items: data });
+    });
   }
 
   render() {
