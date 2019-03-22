@@ -27,7 +27,7 @@ export default () => (
           <p>Wechat Id: chantallargier</p>
         </Popup>
       </Menu.Item>
-      <Menu.Item icon href="http://facebook.com/chantallargier" target="_blank">
+      <Menu.Item icon href="https://www.facebook.com/Chantal-Largier-1713090868989087/" target="_blank">
         <Icon name="facebook" />
       </Menu.Item>
 
