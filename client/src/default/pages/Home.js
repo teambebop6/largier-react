@@ -9,6 +9,7 @@ import { Grid, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { I18n } from 'react-i18next';
 import { Player, ControlBar } from 'video-react';
+import StructuredData from 'react-google-structured-data';
 
 import { get } from '../../common/helpers/api';
 // Common components
@@ -153,6 +154,23 @@ class Home extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
+        <StructuredData
+          type="Person"
+          data={{
+            name: 'Chantal Largier',
+            nationality: 'Switzerland',
+            gender: 'Female',
+            description: 'Swiss Pianist Chantal Largier is a talented, versatile and admired artist, who knows how to impress and fascinate the audience through her interpretation and a real passion for music. Her goal is to find the true spirit of music and to share it with her audience.',
+            jobTitle: 'Swiss Pianist',
+            url: 'http://www.chantallargier.com',
+            image: 'http://www.chantallargier.com/static/media/headerChurch.d7af3650.jpg',
+            sameAs: [
+              'https://www.facebook.com/Chantal-Largier-1713090868989087/',
+              'https://www.youtube.com/channel/UCTtRvi4HOBtmSqzJ-QrKOjQ',
+            ],
+          }}
+        />
       </div>
     );
   }
