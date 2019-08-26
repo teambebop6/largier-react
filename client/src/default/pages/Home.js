@@ -148,7 +148,7 @@ class Home extends Component {
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>
-                <span>&copy;2018 chantallargier.com 2 | </span>
+                <span>&copy;2018 chantallargier.com | </span>
                 <Link to="/admin" className="link">admin</Link>
               </p>
             </Grid.Column>
