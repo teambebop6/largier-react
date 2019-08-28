@@ -17,7 +17,7 @@
     "build:server": "babel src -d dist",
     "lint": "./node_modules/.bin/eslint src/ tasks/"
   },
-  "pre-commit": [
+  "pre-push": [
     "lint"
   ],
   "dependencies": {

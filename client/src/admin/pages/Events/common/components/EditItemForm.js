@@ -97,7 +97,6 @@ class EditItemForm extends Component {
                   onChange={this.onChange}
                 />
 
-
                 <Form.Field>
                   <label htmlFor="title">
                     Title

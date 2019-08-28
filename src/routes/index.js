@@ -4,6 +4,27 @@ import auth from './auth';
 import adminRouter from './admin';
 import config from '../config';
 import Event from '../models/event';
+import {loadConcertsNumConfig} from '../utils/ConfigUtils';
+
+const aggregatePastConcerts = (events) => {
+  const concerts = {};
+  const years = [];
+  if (events) {
+    events.forEach((e) => {
+      const year = e.date.getFullYear();
+      if (!concerts[year]) {
+        concerts[year] = [];
+        years.push(year);
+      }
+      concerts[year].push(e);
+    });
+    years.sort((a, b) => - (a - b));
+  }
+  return {
+    years,
+    concerts
+  };
+};
 
 // Load subroutes
 
@@ -23,22 +44,42 @@ router.get('/concerts', (req, res) => {
     if (err) {
       return res.json(err);
     }
-    console.log(events);
     let upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now())));
 
     let pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
 
-    // Limit
-    const limit = parseInt(req.query.limit, 10);
-    if (limit !== 0 && !isNaN(limit)) {
-      upcomingConcerts = upcomingConcerts.splice(0, limit);
-      pastConcerts = pastConcerts.splice(0, limit);
+    loadConcertsNumConfig().then(({past = 5, upcoming = 5}) => {
+      upcomingConcerts = upcomingConcerts.splice(0, upcoming);
+      pastConcerts = pastConcerts.splice(0, past);
+      return res.json({
+        data: {
+          upcoming_concerts: upcomingConcerts,
+          past_concerts: pastConcerts,
+        },
+      });
+    }).catch((e) => {
+      return res.status(500).json(err);
+    });
+  });
+});
+
+router.get('/concerts/all', (req, res) => {
+  const findQuery = Event.find().sort({
+    date: 'asc',
+  });
+
+  findQuery.exec((err, events) => {
+    if (err) {
+      return res.json(err);
     }
+    let upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now())));
+
+    let pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
 
     return res.json({
       data: {
         upcoming_concerts: upcomingConcerts,
-        past_concerts: pastConcerts,
+        past_concerts: aggregatePastConcerts(pastConcerts),
       },
     });
   });

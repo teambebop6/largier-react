@@ -42,6 +42,15 @@ export default class TopBar extends Component {
         >
           Events verwalten
         </Menu.Item>
+        <Menu.Item
+          name="configuration"
+          active={activeItem === 'configuration'}
+          onClick={this.handleItemClick}
+          as={Link}
+          to="/admin/configuration/"
+        >
+          Configuration
+        </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
             as={Link}
