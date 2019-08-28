@@ -14,7 +14,7 @@ import { get } from '../../common/helpers/api';
 import ConcertBlock from '../../common/components/ConcertBlock';
 // Resources
 import './Home.less';
-import Logo from '../../res/images/logo.png';
+import Logo from '../../res/images/logoBlack.svg';
 
 import i18n from '../../i18n';
 
@@ -23,7 +23,7 @@ const selectLanguage = (lng) => {
   i18n.changeLanguage(lng);
 };
 
-class Home extends Component {
+class Concerts extends Component {
   constructor() {
     super();
     this.state = {
@@ -34,25 +34,31 @@ class Home extends Component {
 
 
   componentDidMount() {
-    get('/api/concerts').then((res) => {
+    get('/api/concerts/all').then((res) => {
+      console.log(res.data);
       this.setState(res.data);
     }).catch(err => err);
-
-    selectLanguage('en');
+    selectLanguage(this.props.locate || 'en');
   }
 
   render() {
     return (
       <div>
-
-        <Grid className="page">
+        <Grid
+          className="page"
+          style={{
+          marginTop: '10px',
+        }}
+        >
           <Grid.Row>
             <Grid.Column textAlign="center">
               <Button as={Link} to="/" floated="left">
                 <I18n>{t => t('back')}</I18n>
               </Button>
-              <Image src={Logo} centered />
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Image src={Logo} centered size="medium" />
           </Grid.Row>
         </Grid>
 
@@ -69,13 +75,32 @@ class Home extends Component {
               </h3>
               <ConcertBlock
                 concerts={this.state.upcoming_concerts}
+                limit={-1}
               />
               <h3>
                 <I18n>{t => t('past-concerts')}</I18n>
               </h3>
-              <ConcertBlock
-                concerts={this.state.past_concerts}
-              />
+              {
+                (this.state.past_concerts && this.state.past_concerts.years) &&
+                (
+                  this.state.past_concerts.years.map(year => (
+                      <div
+                        key={year}
+                        style={{
+                        marginBottom: '2rem',
+                      }}
+                      >
+                        <h4>
+                          { String(year) }
+                        </h4>
+                        <ConcertBlock
+                          concerts={this.state.past_concerts.concerts[year]}
+                          limit={-1}
+                        />
+                      </div>
+                    ))
+                )
+              }
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -98,7 +123,11 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   changePage: path => push(path || '/login'),
 }, dispatch);
 
+const mapStateToProps = state => ({
+  locate: state.settings.locate,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Concerts);

@@ -10,7 +10,7 @@ import ConcertElement from './ConcertElement';
 import './ConcertBlock.less';
 import { changeLocate } from '../../default/modules/settings';
 
-const ConcertBlock = ({ concerts, limit, locate }) => {
+const ConcertBlock = ({ concerts, locate }) => {
   moment.locale(locate);
   if (!concerts || concerts.length === 0) {
     return (
@@ -21,7 +21,7 @@ const ConcertBlock = ({ concerts, limit, locate }) => {
     <Table basic="very" className="concertsTable">
       <tbody>
       {
-        concerts.slice(0, limit).map(concert => (
+        concerts.map(concert => (
           <ConcertElement
             key={concert._id}
             concert={concert}
@@ -35,13 +35,8 @@ const ConcertBlock = ({ concerts, limit, locate }) => {
   );
 };
 
-ConcertBlock.defaultProps = {
-  limit: 5,
-};
-
 ConcertBlock.propTypes = {
   concerts: PropTypes.array.isRequired,
-  limit: PropTypes.number,
 };
 
 const mapStateToProps = state => ({

@@ -4,6 +4,7 @@
 import path from 'path';
 import AdminHomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import ConfigurationPage from './pages/Configuration/ConfigurationPage';
 // Subroutes
 import eventsRoutes from './pages/Events/routesConfig';
 
@@ -11,6 +12,12 @@ const routes = [
   {
     path: '/admin',
     component: AdminHomePage,
+    exact: true,
+    admin: true,
+  },
+  {
+    path: '/admin/configuration',
+    component: ConfigurationPage,
     exact: true,
     admin: true,
   },

@@ -32,7 +32,7 @@ class Login extends Component {
       const { authenticate: ath, changePage } = props;
       const { username, password } = this.state.value;
       ath(username, password).then(() => {
-        changePage('/admin');
+        changePage('/admin/events/');
       });
     };
   }

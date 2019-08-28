@@ -42,14 +42,16 @@ class List extends Component {
   }
 
   loadItems() {
-    get(apiBasePath, {
+    const promiseGetEvents = get(apiBasePath, {
       headers: {
         Authorization: this.props.authorization,
       },
-    }).then((data) => {
-      if (!data) return;
-      this.setState({ items: data });
     });
+    Promise.all([promiseGetEvents])
+      .then(([events]) => {
+        if (!events) return;
+        this.setState({ items: events });
+      });
   }
 
   render() {
@@ -68,11 +70,9 @@ class List extends Component {
 
         <Grid className="page">
           <Grid.Row>
-            <h3>Events</h3>
-          </Grid.Row>
-          <Grid.Row>
             <Grid.Column>
-              <Link className="ui button" to="./add">Create new element</Link>
+              <h1>Events</h1>
+              <Link className="ui button primary" to="./add">Create New</Link>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

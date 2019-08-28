@@ -38,11 +38,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    get('/api/concerts?limit=5').then((res) => {
+    get('/api/concerts').then((res) => {
       this.setState(res.data);
     }).catch(err => err);
-
-    i18n.changeLanguage('en');
+    i18n.changeLanguage(this.props.locate || 'en');
   }
 
   render() {
@@ -125,9 +124,9 @@ class Home extends Component {
               <ConcertBlock
                 concerts={this.state.past_concerts}
               />
-              <a href="/concerts" className="link">
+              <Link to="/concerts" className="link">
                 <I18n>{t => t('show-all-concerts')}</I18n>
-              </a>
+              </Link>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -148,7 +147,7 @@ class Home extends Component {
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>
-                <span>&copy;2018 chantallargier.com | </span>
+                <span>&copy;2019 chantallargier.com | </span>
                 <Link to="/admin" className="link">admin</Link>
               </p>
             </Grid.Column>
@@ -164,7 +163,7 @@ class Home extends Component {
             description: 'Swiss Pianist Chantal Largier is a talented, versatile and admired artist, who knows how to impress and fascinate the audience through her interpretation and a real passion for music. Her goal is to find the true spirit of music and to share it with her audience.',
             jobTitle: 'Swiss Pianist',
             url: 'http://www.chantallargier.com',
-            image: 'http://www.chantallargier.com/static/media/headerChurch.d7af3650.jpg',
+            image: 'http://www.chantallargier.com/avatar.jpg',
             sameAs: [
               'https://www.facebook.com/Chantal-Largier-1713090868989087/',
               'https://www.youtube.com/channel/UCTtRvi4HOBtmSqzJ-QrKOjQ',
@@ -180,7 +179,12 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   changePage: path => push(path || '/login'),
 }, dispatch);
 
+const mapStateToProps = state => ({
+  locate: state.settings.locate,
+  upcomingNum: state.configuration,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Home);

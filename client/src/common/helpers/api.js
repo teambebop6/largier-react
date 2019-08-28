@@ -8,13 +8,6 @@ export const post = (endpoint, data, opts) => {
     headers: {},
   };
 
-  // if (!opts || !opts.autoHeaders) {
-  //   options.headers = {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   }
-  // }
-
   if (data instanceof FormData) {
     options.body = data;
   } else {
