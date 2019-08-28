@@ -4,7 +4,7 @@ import auth from './auth';
 import adminRouter from './admin';
 import config from '../config';
 import Event from '../models/event';
-import {loadConcertsNumConfig} from '../utils/ConfigUtils';
+import { loadConcertsNumConfig } from '../utils/ConfigUtils';
 
 const aggregatePastConcerts = (events) => {
   const concerts = {};
@@ -18,11 +18,11 @@ const aggregatePastConcerts = (events) => {
       }
       concerts[year].push(e);
     });
-    years.sort((a, b) => - (a - b));
+    years.sort((a, b) => -(a - b));
   }
   return {
     years,
-    concerts
+    concerts,
   };
 };
 
@@ -48,7 +48,9 @@ router.get('/concerts', (req, res) => {
 
     let pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
 
-    loadConcertsNumConfig().then(({past = 5, upcoming = 5}) => {
+    return loadConcertsNumConfig().then(({ past = 5, upcoming = 5 }) => {
+      console.log(past);
+      console.log(upcoming);
       upcomingConcerts = upcomingConcerts.splice(0, upcoming);
       pastConcerts = pastConcerts.splice(0, past);
       return res.json({
@@ -57,9 +59,7 @@ router.get('/concerts', (req, res) => {
           past_concerts: pastConcerts,
         },
       });
-    }).catch((e) => {
-      return res.status(500).json(err);
-    });
+    }).catch(e => res.status(500).json(e));
   });
 });
 
@@ -72,9 +72,9 @@ router.get('/concerts/all', (req, res) => {
     if (err) {
       return res.json(err);
     }
-    let upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now())));
+    const upcomingConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) >= Date.now())));
 
-    let pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
+    const pastConcerts = events.filter(e => (e.type === 'concert' && e.visible && (Date.parse(e.date) < Date.now()))).reverse();
 
     return res.json({
       data: {

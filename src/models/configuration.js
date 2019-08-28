@@ -6,13 +6,13 @@ autoIncrement.initialize(mongoose.connection);
 const ConfigurationItem = new mongoose.Schema({
   name: String,
   title: String,
-  value: String
+  value: String,
 });
 
 const Configuration = new mongoose.Schema({
   _id: Number,
   groupName: String,
-  items: [ConfigurationItem]
+  items: [ConfigurationItem],
 });
 
 Configuration.plugin(autoIncrement.plugin, 'Configuration');
