@@ -43,7 +43,7 @@ echo development environment is $devEnv
 if ssh $serverHost stat $remoteCheckPath \> /dev/null 2\>\&1
 then
     echo "File exists"
-    pm2 deploy $devEnv exec "git pull"
+    pm2 deploy $devEnv exec "git pull" --force
 else
     echo "File does not exist"
     pm2 deploy $devEnv setup
