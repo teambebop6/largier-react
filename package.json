@@ -7,7 +7,7 @@
     "server": "PORT=3001 nodemon --exec babel-node src",
     "clean": "rimraf dist && rimraf client/build",
     "copy": "npm run copy:client && npm run copy:package.json",
-    "build": "npm run build:server && npm run build:client && npm run copy && copy:gitignore",
+    "build": "npm run build:server && npm run build:client && npm run copy && npm run copy:gitignore",
     "dist": "zip -r dist.zip dist",
     "upload": "babel-node tasks -a upload",
     "copy:client": "cpx \"client/build/**/*\" dist/public",
