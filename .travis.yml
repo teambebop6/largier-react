@@ -10,7 +10,6 @@ addons:
   - github.com
   - bitbucket.org
 before_install:
-- npm install -g npx
 - npm install -g pm2
 - npm install -g cpx
 - bash ./.travis/scripts/init.sh
