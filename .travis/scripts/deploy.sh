@@ -28,7 +28,7 @@ travisBranch=$TRAVIS_BRANCH
 
 echo will deploy according to travis branch $travisBranch
 
-serverHost=`cat server_host`
+serverHost=`cat ./assets/server_host`
 remoteCheckPath=`DEPLOYING=true BRANCH=$travisBranch node ecosystem.config.js`
 
 if [ "$travisBranch" = "master" -o "$travisBranch" = "release" ]
