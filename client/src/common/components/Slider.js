@@ -64,6 +64,18 @@ export default class SimpleSlider extends Component {
               title="Video 1"
               width="560"
               height="315"
+              src="https://www.youtube.com/embed/9ZB2DrO0t_E"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen/>
+          </div>
+        </div>
+        <div>
+          <div className="videoWrapper">
+            <iframe
+              title="Video 2"
+              width="560"
+              height="315"
               src="https://www.youtube.com/embed/1VgdOcGl-q8"
               frameBorder="0"
               allow="autoplay; encrypted-media"
@@ -74,7 +86,7 @@ export default class SimpleSlider extends Component {
         <div>
           <div className="videoWrapper">
             <iframe
-              title="Video 2"
+              title="Video 3"
               width="560"
               height="315"
               src="https://www.youtube.com/embed/oqXjA0Uh38c"
@@ -87,7 +99,7 @@ export default class SimpleSlider extends Component {
         <div>
           <div className="videoWrapper">
             <iframe
-              title="Video 3"
+              title="Video 4"
               width="560"
               height="315"
               src="https://www.youtube.com/embed/cnhkhJmc__I"
