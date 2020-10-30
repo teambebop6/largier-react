@@ -1,9 +1,8 @@
 import i18next from 'i18next';
 import { reactI18nextModule } from 'react-i18next';
+import moment from 'moment';
 import en from './i18n_translation/en.json';
 import de from './i18n_translation/de.json';
-
-import moment from 'moment';
 
 i18next
   .use(reactI18nextModule)
