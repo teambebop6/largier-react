@@ -67,7 +67,8 @@ export default class SimpleSlider extends Component {
               src="https://www.youtube.com/embed/9ZB2DrO0t_E"
               frameBorder="0"
               allow="autoplay; encrypted-media"
-              allowFullScreen/>
+              allowFullScreen
+            />
           </div>
         </div>
         <div>
