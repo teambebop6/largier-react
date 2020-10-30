@@ -94,6 +94,7 @@ class Home extends Component {
             <p><I18n>{t => t('bio5')}</I18n></p>
             <p><I18n>{t => t('bio6')}</I18n></p>
             <p><I18n>{t => t('bio7')}</I18n></p>
+            <p><I18n>{t => t('bio8')}</I18n></p>
             { /* <p><I18n>{t => t('bio1')}</I18n></p>
             <p><I18n>{t => <div dangerouslySetInnerHTML={{ __html: t('bio2') }} /> }</I18n></p>
             */
