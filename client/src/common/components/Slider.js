@@ -28,6 +28,23 @@ function SamplePrevArrow(props) {
   );
 }
 
+const audio1Src = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1388668324&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true';
+const audioStyle = {
+  fontSize: 10,
+  color: '#cccccc',
+  lineBreak: 'anywhere',
+  wordBreak: 'normal',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif',
+  fontWeight: 100,
+};
+const audioAuthorUrl = 'https://soundcloud.com/chantal-largier';
+const author = 'Chantal Largier';
+const tracksUrl = 'https://soundcloud.com/chantal-largier/sets/timeless';
+const tracksName = 'Timeless';
+
 export default class SimpleSlider extends Component {
   render() {
     const settings = {
@@ -58,6 +75,47 @@ export default class SimpleSlider extends Component {
     };
     return (
       <Slider {...settings}>
+        <div>
+          <div className="videoWrapper">
+            <iframe
+              title={tracksName}
+              width="100%"
+              height="300"
+              scrolling="no"
+              frameBorder="no"
+              allow="autoplay"
+              src={audio1Src}
+            />
+            <div
+              style={audioStyle}
+            >
+              <a
+                href={audioAuthorUrl}
+                title={author}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#cccccc',
+                  textDecoration: 'none',
+                }}
+              >
+                { author }
+              </a> ·
+              <a
+                href={tracksUrl}
+                title={tracksName}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#ccccccm',
+                  textDecoration: 'none',
+                }}
+              >
+                {tracksName}
+              </a>
+            </div>
+          </div>
+        </div>
         <div>
           <div className="videoWrapper">
             <iframe
