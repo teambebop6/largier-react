@@ -45,6 +45,9 @@ const author = 'Chantal Largier';
 const tracksUrl = 'https://soundcloud.com/chantal-largier/sets/timeless';
 const tracksName = 'Timeless';
 
+const soundCloudIframeTitle = `${tracksName} Soundcloud`;
+const spotifyIframeTitle = `${tracksName} Spotify`;
+
 export default class SimpleSlider extends Component {
   render() {
     const settings = {
@@ -78,7 +81,7 @@ export default class SimpleSlider extends Component {
         <div>
           <div className="videoWrapper">
             <iframe
-              title={tracksName}
+              title={soundCloudIframeTitle}
               width="100%"
               height="300"
               scrolling="no"
@@ -114,6 +117,22 @@ export default class SimpleSlider extends Component {
                 {tracksName}
               </a>
             </div>
+          </div>
+        </div>
+        <div>
+          <div className="videoWrapper">
+            <iframe
+              title={spotifyIframeTitle}
+              style={{
+                borderRadius: '12px',
+              }}
+              src="https://open.spotify.com/embed/album/2kycyy2GqQMdX62vcOY2ZG?utm_source=generator"
+              width="100%"
+              height="380"
+              frameBorder="0"
+              allowFullScreen=""
+              allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            />
           </div>
         </div>
         <div>
