@@ -30,5 +30,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
+      - run: npm install -g pm2
+      - run: npm install -g cpx
       - run: npm install -D
-      - run: npm run build --if-present
+      - run: cd ./client && npm install && cd ..
+      - run: CI=false npm run build --if-present
