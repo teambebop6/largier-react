@@ -29,8 +29,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm install -g pm2
-      - run: npm install -g cpx
-      - run: npm install -D
-      - run: CI=false npm run build_ci
+      - name: Build
+        run: |
+          npm ci
+          npm install -g pm2
+          npm install -g cpx
+          npm install -D
+          CI=false npm run build_ci
+          npm run dist
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist.zip
