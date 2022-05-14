@@ -7,16 +7,21 @@
     "server": "PORT=3001 nodemon --exec babel-node src",
     "clean": "rimraf dist && rimraf client/build",
     "copy": "npm run copy:client && npm run copy:package.json",
+    "copy_ci": "npm run copy:client_ci && npm run copy:package.json",
     "build": "npm run build:server && npm run build:client && npm run copy && npm run copy:gitignore",
     "dist": "zip -r dist.zip dist",
     "upload": "babel-node tasks -a upload",
     "copy:client": "cpx \"client/build/**/*\" dist/public",
+    "copy:client_ci": "cpx \"client_build/**/*\" dist/public",
     "copy:package.json": "cpx \"package*.json\" dist/",
     "copy:pm2": "cpx \"pm2.*.js\" dist/",
     "copy:gitignore": "cpx \"src/largier-secret/.gitignore\" dist/",
     "build:client": "cd client && npm run build && cd ..",
     "build:server": "babel src -d dist",
-    "lint": "./node_modules/.bin/eslint src/ tasks/"
+    "lint": "./node_modules/.bin/eslint src/ tasks/",
+    "before_build_ci": "npm run build:client && cpx \"client/build/**/*\" client_build",
+    "build_local": "npm run build",
+    "build_ci": "npm run build:server && npm run copy_ci && npm run copy:gitignore"
   },
   "pre-commit": [
     "lint"

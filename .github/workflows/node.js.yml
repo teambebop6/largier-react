@@ -32,6 +32,5 @@ jobs:
       - run: npm ci
       - run: npm install -g pm2
       - run: npm install -g cpx
-      - run: npm install -D --registry https://registry.npmjs.org
-      - run: cd ./client && npm install --registry https://registry.npmjs.org && cd ..
-      - run: CI=false npm run build --if-present
+      - run: npm install -D
+      - run: CI=false npm run build_ci
