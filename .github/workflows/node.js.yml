@@ -13,16 +13,16 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_archive:
     environment: release
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      - run: echo "github.ref is ${{github.ref}}"
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -36,11 +36,6 @@ jobs:
           npm install -g cpx
           npm install -D
           CI=false npm run build_ci
-
-  package:
-    environment: release
-    runs-on: ubuntu-latest
-    steps:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
