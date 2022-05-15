@@ -31,13 +31,16 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
-          echo "env secrect TEST_NAME value is ${{ secrets.TEST_NAME }}"
-          echo "act secrect TEST_ACT_SECRETS value is ${{ secrets.TEST_ACT_SECRETS }}"
           npm ci
           npm install -g pm2
           npm install -g cpx
           npm install -D
           CI=false npm run build_ci
+
+  package:
+    environment: release
+    runs-on: ubuntu-latest
+    steps:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
