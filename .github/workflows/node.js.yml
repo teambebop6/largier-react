@@ -8,11 +8,11 @@ on:
     branches:
       - main
       - feature/*
-      - release/*
-#  pull_request:
-#    branches:
-#      - main
-#      - release/*
+      - release/**
+  pull_request:
+    branches:
+      - main
+      - release/**
 
 jobs:
   build_and_archive:
