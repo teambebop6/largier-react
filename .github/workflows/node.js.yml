@@ -42,8 +42,7 @@ jobs:
         with:
           files: dist/
           dest: dist.zip
-
-      #      - name: Archive production artifacts
+#      - name: Archive production artifacts
 #        uses: actions/upload-artifact@v3
 #        if: contains(github.ref, 'refs/heads/release/')
 #        with:
@@ -52,7 +51,7 @@ jobs:
 #            dist
       - name: Publish
         uses: nogsantos/scp-deploy@master
-#        if: contains(github.ref, 'refs/heads/release/')
+        if: contains(github.ref, 'refs/heads/release/')
         with:
           src: ./dist.zip
           host: ${{ secrets.DEPLOY_HOST }}
