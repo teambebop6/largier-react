@@ -22,8 +22,6 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - run: echo "github.ref is ${{github.ref}}"
-        if: contains(github.ref, 'refs/heads/feature/')
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -38,6 +36,7 @@ jobs:
           npm install -D
           CI=false npm run build_ci
       - name: Archive production artifacts
+        if: contains(github.ref, 'refs/heads/release/')
         uses: actions/upload-artifact@v3
         with:
           name: dist
