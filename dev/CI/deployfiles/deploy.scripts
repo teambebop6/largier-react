@@ -1,0 +1,8 @@
+pm2 stop largier
+pm2 delete largier
+rm -rf /usr/local/share/www/www.chantallargier.com_bak
+mv /usr/local/share/www/www.chantallargier.com /usr/local/share/www/www.chantallargier.com_bak
+rm -rf /usr/local/share/www/www.chantallargier.com
+unzip @@ZIP_FILE_NAME@@ -d /usr/local/share/www/www.chantallargier.com
+cd /usr/local/share/www/www.chantallargier.com
+npm install && DEPLOY_ENV=production pm2 startOrReload ecosystem.config.js --env production
