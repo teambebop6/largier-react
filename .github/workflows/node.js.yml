@@ -56,7 +56,7 @@ jobs:
         run: |
           echo "dist.${{github.run_id}}.zip" > deploy/fileInfo
           cat ./dev/CI/deployfiles/deploy.scripts | sed -r 's/@@ZIP_FILE_NAME@@/dist.${{github.run_id}}.zip/g' >> deploy/dist.${{github.run_id}}.zip.scripts
-          echo deploy/dist.${{github.run_id}}.zip.scripts >> deploy/fileInfo
+          echo dist.${{github.run_id}}.zip.scripts >> deploy/fileInfo
       - name: Publish
         uses: nogsantos/scp-deploy@master
 #        if: contains(github.ref, 'refs/heads/release/')
