@@ -37,6 +37,8 @@ jobs:
           npm install -g cpx
           npm install -D
           CI=false npm run build_ci
+          echo "${{ secrets.ECOSYSTEM_CONFIG_JS }}" > ecosystem.config.js
+          cp ecosystem.config.js dist/
       - name: Package dist files
         uses: vimtor/action-zip@v1
         with:
@@ -53,6 +55,7 @@ jobs:
 #        if: contains(github.ref, 'refs/heads/release/')
         run: |
           echo "dist.${{github.run_id}}.zip" > deploy/fileInfo
+          cat ./dev/CI/deployfiles/deploy.scripts | sed -r 's/@@ZIP_FILE_NAME@@/dist.${{github.run_id}}.zip/g' >> deploy/dist.${{github.run_id}}.zip.scripts
       - name: Publish
         uses: nogsantos/scp-deploy@master
 #        if: contains(github.ref, 'refs/heads/release/')
