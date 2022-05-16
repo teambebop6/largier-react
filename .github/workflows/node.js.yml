@@ -50,7 +50,7 @@ jobs:
 #          path: |
 #            dist
       - name: Generate package related files
-        if: contains(github.ref, 'refs/heads/release/')
+#        if: contains(github.ref, 'refs/heads/release/')
         run: |
           echo "Test github variables"
           echo github run id is ${{github.run_id}}
