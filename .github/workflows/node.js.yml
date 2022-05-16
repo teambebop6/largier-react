@@ -49,6 +49,12 @@ jobs:
 #          name: dist
 #          path: |
 #            dist
+      - name: Generate package related files
+        if: contains(github.ref, 'refs/heads/release/')
+        run: |
+          echo "Test github variables"
+          echo github run id is ${{github.run_id}}
+          echo github name is ${{github.name}}
       - name: Publish
         uses: nogsantos/scp-deploy@master
         if: contains(github.ref, 'refs/heads/release/')
