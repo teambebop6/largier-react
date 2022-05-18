@@ -56,15 +56,15 @@ jobs:
 #          name: dist
 #          path: |
 #            dist
-      - name: Generate package related files
-#        if: contains(github.ref, 'refs/heads/release/')
+      - name: Before publish
+        if: contains(github.ref, 'refs/heads/release/')
         run: |
           echo "dist.${{github.run_id}}.zip" > deploy/fileInfo
           cat ./dev/CI/deployfiles/deploy.scripts | sed -r 's/@@ZIP_FILE_NAME@@/dist.${{github.run_id}}.zip/g' >> deploy/dist.${{github.run_id}}.zip.scripts
           echo dist.${{github.run_id}}.zip.scripts >> deploy/fileInfo
       - name: Publish
         uses: nogsantos/scp-deploy@master
-#        if: contains(github.ref, 'refs/heads/release/')
+        if: contains(github.ref, 'refs/heads/release/')
         with:
           src: ./deploy
           host: ${{ secrets.DEPLOY_HOST }}
