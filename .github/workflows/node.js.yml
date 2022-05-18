@@ -46,6 +46,7 @@ jobs:
           bash dev/CI/post_build.sh
       - name: Package dist files
         uses: vimtor/action-zip@v1
+        if: contains(github.ref, 'refs/heads/release/')
         with:
           files: dist/
           dest: deploy/dist.${{github.run_id}}.zip
