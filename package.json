@@ -19,7 +19,7 @@
     "build:client": "cd client && npm run build && cd ..",
     "build:server": "babel src -d dist",
     "lint": "./node_modules/.bin/eslint src/ tasks/",
-    "before_build_ci": "npm run build:client && cpx \"client/build/**/*\" client_build",
+    "before_build_ci": "npm run build:client && rimraf client_build && cpx \"client/build/**/*\" client_build",
     "build_local": "npm run build",
     "build_ci": "npm run build:server && npm run copy_ci && npm run copy:gitignore"
   },
