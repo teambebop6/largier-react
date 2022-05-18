@@ -41,8 +41,9 @@ jobs:
           npm install -g pm2
           npm install -g cpx
           npm install -D
+          bash dev/CI/before_build.sh
           CI=false npm run build_ci
-          bash dev/CI/load_secrects.sh
+          bash dev/CI/post_build.sh
       - name: Package dist files
         uses: vimtor/action-zip@v1
         with:
