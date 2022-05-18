@@ -119,3 +119,4 @@ client/node_modules
 dist
 dist.zip
 .travis/assets/
+dev/ignore/
