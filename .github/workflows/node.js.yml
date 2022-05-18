@@ -14,6 +14,11 @@ on:
       - main
       - release/**
 
+env:
+  ECOSYSTEM_CONFIG_JS: ${{ secrets.ECOSYSTEM_CONFIG_JS }}
+  CONFIG_DEV: ${{ secrets.CONFIG_DEV }}
+  CONFIG_PROD: ${{ secrets.CONFIG_PROD }}
+
 jobs:
   build_and_archive:
     environment: release
@@ -37,8 +42,7 @@ jobs:
           npm install -g cpx
           npm install -D
           CI=false npm run build_ci
-          echo "${{ secrets.ECOSYSTEM_CONFIG_JS }}" > ecosystem.config.js
-          cp ecosystem.config.js dist/
+          bash dev/CI/load_secrects.sh
       - name: Package dist files
         uses: vimtor/action-zip@v1
         with:
