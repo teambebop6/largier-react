@@ -14,6 +14,11 @@ on:
       - main
       - release/**
 
+env:
+  ECOSYSTEM_CONFIG_JS: ${{ secrets.ECOSYSTEM_CONFIG_JS }}
+  CONFIG_DEV: ${{ secrets.CONFIG_DEV }}
+  CONFIG_PROD: ${{ secrets.CONFIG_PROD }}
+
 jobs:
   build_and_archive:
     environment: release
@@ -36,19 +41,33 @@ jobs:
           npm install -g pm2
           npm install -g cpx
           npm install -D
+          bash dev/CI/before_build.sh
           CI=false npm run build_ci
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
+          bash dev/CI/post_build.sh
+      - name: Package dist files
+        uses: vimtor/action-zip@v1
         if: contains(github.ref, 'refs/heads/release/')
         with:
-          name: dist
-          path: |
-            dist
+          files: dist/
+          dest: deploy/dist.${{github.run_id}}.zip
+#      - name: Archive production artifacts
+#        uses: actions/upload-artifact@v3
+#        if: contains(github.ref, 'refs/heads/release/')
+#        with:
+#          name: dist
+#          path: |
+#            dist
+      - name: Before publish
+        if: contains(github.ref, 'refs/heads/release/')
+        run: |
+          echo "dist.${{github.run_id}}.zip" > deploy/fileInfo
+          cat ./dev/CI/deployfiles/deploy.scripts | sed -r 's/@@ZIP_FILE_NAME@@/dist.${{github.run_id}}.zip/g' >> deploy/dist.${{github.run_id}}.zip.scripts
+          echo dist.${{github.run_id}}.zip.scripts >> deploy/fileInfo
       - name: Publish
         uses: nogsantos/scp-deploy@master
         if: contains(github.ref, 'refs/heads/release/')
         with:
-          src: ./dist.zip
+          src: ./deploy
           host: ${{ secrets.DEPLOY_HOST }}
           remote: ${{ secrets.DEPLOY_DIR }}
           port: ${{ secrets.DEPLOY_PORT }}
