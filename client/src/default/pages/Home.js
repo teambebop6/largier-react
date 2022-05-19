@@ -56,7 +56,7 @@ class Home extends Component {
 
         <Fab
           icon={
-            <img src={InstagramIcon} alt="Go go my Instagram" />
+            <img width={50} src={InstagramIcon} alt="Go go my Instagram" />
           }
           mainButtonStyles={{
             backgroundColor: 'white',
