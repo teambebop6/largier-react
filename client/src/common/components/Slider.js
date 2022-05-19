@@ -81,6 +81,19 @@ export default class SimpleSlider extends Component {
         <div>
           <div className="videoWrapper">
             <iframe
+              title="Video 1"
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/zE6a2HL3oec"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          </div>
+        </div>
+        <div>
+          <div className="videoWrapper">
+            <iframe
               title={soundCloudIframeTitle}
               width="100%"
               height="300"
