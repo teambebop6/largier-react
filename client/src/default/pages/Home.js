@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { I18n } from 'react-i18next';
 import { Player, ControlBar } from 'video-react';
 import StructuredData from 'react-google-structured-data';
+import { Fab } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
 
 import { get } from '../../common/helpers/api';
 // Common components
@@ -24,6 +26,7 @@ import Logo from '../../res/images/logoWhite.svg';
 import Avatar from '../../res/images/avatar.jpg';
 import Header from '../../res/images/headerChurch.jpg';
 import Video from '../../res/images/largier.mp4';
+import InstagramIcon from '../../res/images/instagram.svg';
 
 import i18n from '../../i18n';
 
@@ -50,6 +53,18 @@ class Home extends Component {
 
         <Nav />
         <div className="headerFrame" />
+
+        <Fab
+          icon={
+            <img src={InstagramIcon} alt="Go go my Instagram" />
+          }
+          mainButtonStyles={{
+            backgroundColor: 'white',
+          }}
+          onClick={() => {
+            window.open('https://instagram.com/chantal_largier_');
+          }}
+        />
 
         <div className="headerPicture" style={{ backgroundImage: `url(${Header})` }}>
           <div className="headerContent">
