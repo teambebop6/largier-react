@@ -39,7 +39,8 @@ jobs:
           npm ci
           npm install -g pm2
           npm install -g cpx
-          npm install -D
+          npm install -g yarn
+          yarn install
           bash dev/CI/before_build.sh
           CI=false npm run build_ci
           bash dev/CI/post_build.sh
