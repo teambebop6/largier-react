@@ -27,3 +27,11 @@ npm run start
 ```
 npm run build
 ```
+
+### CI build
+
+```
+# in local
+npm run before_build_ci
+npm add . && npm push
+```
