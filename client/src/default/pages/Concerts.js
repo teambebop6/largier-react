@@ -18,6 +18,8 @@ import Logo from '../../res/images/logoBlack.svg';
 
 import i18n from '../../i18n';
 
+import { licenseYear } from '../../config.json';
+
 
 const selectLanguage = (lng) => {
   i18n.changeLanguage(lng);
@@ -108,7 +110,7 @@ class Concerts extends Component {
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>
-                <span>&copy;2018 chantallargier.com | </span>
+                <span>&copy;{licenseYear} chantallargier.com | </span>
                 <Link to="/admin">admin</Link>
               </p>
             </Grid.Column>
