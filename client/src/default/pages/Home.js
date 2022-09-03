@@ -30,6 +30,8 @@ import InstagramIcon from '../../res/images/instagram.svg';
 
 import i18n from '../../i18n';
 
+import { licenseYear } from '../../config.json';
+
 
 class Home extends Component {
   constructor(props) {
@@ -163,7 +165,7 @@ class Home extends Component {
           <Grid.Row>
             <Grid.Column textAlign="center">
               <p>
-                <span>&copy;2019 chantallargier.com | </span>
+                <span>&copy;{licenseYear} chantallargier.com | </span>
                 <Link to="/admin" className="link">admin</Link>
               </p>
             </Grid.Column>

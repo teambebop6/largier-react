@@ -36,10 +36,10 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
-          npm ci
+          npm install -g yarn
           npm install -g pm2
           npm install -g cpx
-          npm install -D
+          yarn install
           bash dev/CI/before_build.sh
           CI=false npm run build_ci
           bash dev/CI/post_build.sh
