@@ -120,3 +120,4 @@ dist
 dist.zip
 .travis/assets/
 dev/ignore/
+dump.rdb

@@ -53,6 +53,8 @@ router.get('/concerts', (req, res) => {
       console.log(upcoming);
       upcomingConcerts = upcomingConcerts.splice(0, upcoming);
       pastConcerts = pastConcerts.splice(0, past);
+      console.log(pastConcerts);
+      console.log(upcomingConcerts);
       return res.json({
         data: {
           upcoming_concerts: upcomingConcerts,

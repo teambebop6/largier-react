@@ -12,10 +12,11 @@ export default class ConcertElement extends Component {
   render() {
     const concert = { ...this.props.concert };
 
-    const ConcertLink = (c) => {
-      if (c.link) {
+    const ConcertLink = (params) => {
+      const { link } = params;
+      if (link) {
         return (
-          <a className="link" href={c.link}>Link</a>
+          <a className="link" href={link} target="_blank" rel="noopener noreferrer">Link</a>
         );
       }
 
@@ -31,7 +32,7 @@ export default class ConcertElement extends Component {
         <Table.Cell width="three">{concert.venue}</Table.Cell>
         <Table.Cell>{concert.location}</Table.Cell>
         <Table.Cell width="two">
-          <ConcertLink concert={concert} />
+          <ConcertLink link={concert.link} />
         </Table.Cell>
       </Table.Row>
     );
