@@ -5,4 +5,4 @@ mv /usr/local/share/www/www.chantallargier.com /usr/local/share/www/www.chantall
 rm -rf /usr/local/share/www/www.chantallargier.com
 unzip @@ZIP_FILE_NAME@@ -d /usr/local/share/www/www.chantallargier.com
 cd /usr/local/share/www/www.chantallargier.com
-npm install && DEPLOY_ENV=production pm2 startOrReload ecosystem.config.js --env production
+yarn install && DEPLOY_ENV=production pm2 startOrReload ecosystem.config.js --env production
